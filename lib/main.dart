@@ -1,14 +1,10 @@
 import 'package:birdnerd/screens/wrapper.dart';
 import 'package:birdnerd/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:birdnerd/screens/home/welcome.dart';
-import 'package:birdnerd/screens/home/settings.dart';
-import 'package:birdnerd/screens/home/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
-
 import 'model/user_model.dart';
 
 /*

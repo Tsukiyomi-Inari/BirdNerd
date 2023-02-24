@@ -36,7 +36,7 @@ class _RegisterState extends State<Register> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
-            Text('Sign up to Easy Task List',
+            Text('Sign up',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

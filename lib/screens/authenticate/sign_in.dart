@@ -37,7 +37,7 @@ class _SignInState extends State<SignIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
-            Text('Sign in to Easy Task List',
+            Text('Sign in',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

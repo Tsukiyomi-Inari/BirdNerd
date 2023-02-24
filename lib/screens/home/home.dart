@@ -14,8 +14,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<Home> {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +22,3 @@ class _HomeScreenState extends State<Home> {
   }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-
-}
