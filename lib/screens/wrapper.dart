@@ -1,3 +1,4 @@
+import 'package:birdnerd/screens/home/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:birdnerd/screens/home/home.dart';
@@ -18,7 +19,7 @@ class Wrapper extends StatelessWidget {
     if(userModel == null){
       return  const Authenticate();
     }else{
-      return const Home();
+      return  const HomeScreen();
     }
     //return either home or Authenticate widget
 
