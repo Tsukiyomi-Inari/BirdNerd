@@ -7,6 +7,7 @@ class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+
   //create userModel obj on Firebase User
   UserModel? _userModelFromFirebase(User? user){
     if (user != null){
@@ -15,6 +16,8 @@ class AuthService {
       return null;
     }
   }
+
+
 
   // auth change user stream
   Stream<UserModel?> get onAuthStateChanged{
