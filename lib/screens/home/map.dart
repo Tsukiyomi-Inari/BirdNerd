@@ -1,7 +1,9 @@
+import 'package:birdnerd/screens/home/widgets/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+
 
 class Map extends StatefulWidget {
   const Map({Key? key}) : super(key: key);
@@ -16,10 +18,10 @@ class _MapState extends State<Map> {
   //late Set<Marker> _mapMarkers = {};
 
   final Location _location = Location();
-  late LatLng _currentLocation;
+  late LatLng _currentLocation ;
 
 
-  late  PermissionStatus _permissionGranted;
+  late  PermissionStatus _permissionGranted = PermissionStatus.grantedLimited ;
 
   @override
   void initState(){
@@ -77,10 +79,10 @@ class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _permissionGranted! != PermissionStatus.granted
+      body: PermissionStatus.granted != _permissionGranted!
           ?const Center(child: Text('Location permission not granted'))
           : _currentLocation == null
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: Loading())
           : GoogleMap(
           onMapCreated: _onMapCreated,
           initialCameraPosition: CameraPosition(

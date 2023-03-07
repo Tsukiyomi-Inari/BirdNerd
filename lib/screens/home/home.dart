@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:birdnerd/screens/home/camera.dart';
 import 'package:birdnerd/screens/home/lifelist.dart';
 import 'package:birdnerd/screens/home/map.dart';
-import 'package:birdnerd/screens/home/settings.dart';
+import 'package:birdnerd/screens/home/widgets/settings.dart';
 import 'package:birdnerd/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 /*
@@ -70,7 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-                SettingsScreen();
+              setState(() {
+
+              });
+                //SettingsScreen();
               },
             style: TextButton.styleFrom(
                 foregroundColor: Colors.white
