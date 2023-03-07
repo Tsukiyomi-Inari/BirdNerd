@@ -14,7 +14,7 @@ class IdentificationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //backgroundColor: Colors.white,
-        backgroundColor: Color(0x44000000),
+        backgroundColor: Colors.teal,
         centerTitle: true,
         title: const Text(
           'Confirm if there is a match',
@@ -47,7 +47,7 @@ class IdentificationScreen extends StatelessWidget {
                 width: double.infinity,
                 margin: const EdgeInsets.all(10),
                 //height: double.infinity,
-                color: Colors.cyan,
+                color: Colors.teal,
                 padding: const EdgeInsets.all(15.0),
                 child: Image.file(File(imagePath)),
               ),
@@ -58,7 +58,7 @@ class IdentificationScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 margin: const EdgeInsets.all(10),
                 width: double.infinity,
-                color: Colors.cyan,
+                color: Colors.teal,
                 child: TextButton(
                   onPressed: () {},
                   child: const Text(
