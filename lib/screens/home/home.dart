@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:birdnerd/screens/home/camera.dart';
 import 'package:birdnerd/screens/home/lifelist.dart';
-import 'package:birdnerd/screens/home/settings.dart';
 import 'package:birdnerd/screens/home/map.dart';
+import 'package:birdnerd/screens/home/widgets/settings.dart';
 import 'package:birdnerd/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -43,9 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-// #region AppBar()
       appBar: AppBar(
-        //backgroundColor: Colors.white,
         backgroundColor: Colors.teal,
         centerTitle: false,
         title: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: 18),),
@@ -60,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.settings))
         ],
       ),
-// #endregion
       body: PageView(
         controller: _pageController,
         onPageChanged: (newIndex) {
@@ -85,3 +82,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
