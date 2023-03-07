@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "937654957714",
+    "project_id": "bird-nerd-15f35",
+    "storage_bucket": "bird-nerd-15f35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937654957714:android:8c5990858a5f72d827584b",
+        "android_client_info": {
+          "package_name": "ca.durham.birdnerd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937654957714-4i1a15u77jhbc3trsneaj9p8ijjo65j0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.durham.birdnerd",
+            "certificate_hash": "17fc8fd3dc250bf2f467607f6396ef257a10e777"
+          }
+        },
+        {
+          "client_id": "937654957714-9djp9o5d3jqegjsibiaqmau1555lq22r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqfRUJDK2zdND83ARrtFXE7IHRTtnKN-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937654957714-9djp9o5d3jqegjsibiaqmau1555lq22r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
