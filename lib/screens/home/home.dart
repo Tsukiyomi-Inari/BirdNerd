@@ -50,7 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: <Widget>[
           IconButton(
               onPressed: () {
-                SettingsScreen();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Settings()),
+                );
               },
               style: TextButton.styleFrom(
                   foregroundColor: Colors.white
@@ -65,10 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = newIndex;
           });
         },
-        children: [
+        children: const [
           LifeList(),
-          const CameraScreen(),
-          MapScreen(),
+          CameraScreen(),
+          Map(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
