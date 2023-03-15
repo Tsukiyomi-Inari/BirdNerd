@@ -5,6 +5,10 @@ import 'package:birdnerd/screens/home/map.dart';
 import 'package:birdnerd/screens/home/widgets/settings.dart';
 import 'package:birdnerd/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:birdnerd/model/birds.dart';
+import 'package:provider/provider.dart';
+
+import 'lifelist.dart';
 
 /*
 author:   Katherine Bellman, Russell Waring
@@ -19,6 +23,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
+  @override
+  void initState(){
+    super.initState();
+  }
+
+  var _isInit = true;
+  @override
+  void didChangeDependencies(){
+    if(_isInit){
+      Provider.of<Birds>(context).lifeList;
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   int _currentIndex = 0;
   final PageController _pageController = PageController(initialPage: 1);
 
@@ -52,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Settings()),
+                  MaterialPageRoute(builder: (context) => const Settings()),
                 );
               },
               style: TextButton.styleFrom(
@@ -78,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _currentIndex,
         items: _bottomNavigationBarItems,
         onTap: (index) {
-          _pageController.animateToPage(index, duration: Duration(milliseconds: 200), curve: Curves.ease);
+          _pageController.animateToPage(index, duration: const Duration(milliseconds: 200), curve: Curves.ease);
         },
         //type: BottomNavigationBarType.fixed,
       ),

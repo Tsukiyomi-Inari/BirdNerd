@@ -1,36 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../model/bird_model.dart';
 
-class BirdImage extends StatefulWidget {
-
-  final String url;
-
-  const BirdImage({super.key, required this.url});
-
-  @override
-  State<BirdImage> createState() => _BirdImageState();
-}
-
-class _BirdImageState extends State<BirdImage> {
-  late  bool _taken = false;
-
-  void _onImageTaken(){
-    setState(() {
-      _taken = true;
-    });
-  }
+class BirdImage extends StatelessWidget {
+  const BirdImage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(widget.url),
-            fit: BoxFit.cover,
-            colorFilter: _taken ? null : const ColorFilter.mode(Colors.grey, BlendMode.color),
-          )
+    final birdData = Provider.of<Bird>(context, listen: false);
+    return ClipRect(
+      child: GridTile(
+        footer: GridTileBar(
+      backgroundColor: Colors.tealAccent.withOpacity(0.45),
+    title: Text(
+      birdData.birdCommon,
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+        fontSize: 16
       ),
+    ),
+    ),
+        child: GestureDetector(
+          onTap: () {
+/*           Navigator.of(context).pushNamed(
+            ProductDetailScreen.routeName,
+            arguments: product.id,
+          );*/
+        },
+    child:
+    Image.network(
+      birdData.imageUrl,
+      fit: BoxFit.cover,
+
+
+    ),
+    ),
+    ),
     );
   }
-
-
 }

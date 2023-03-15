@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 import '../model/user_model.dart';
+import 'package:birdnerd/model/birds.dart';
 
 
 class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  late final Birds birdData;
 
   //create userModel obj on Firebase User
   UserModel? _userModelFromFirebase(User? user){
@@ -60,7 +63,7 @@ class AuthService {
     try{
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user!;
-
+      birdData.userLifeList(user.uid.toString());
       return _userModelFromFirebase(user);
     }catch(error) {
       print(error.toString());

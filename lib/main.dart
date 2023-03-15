@@ -1,3 +1,4 @@
+import 'package:birdnerd/model/birds.dart';
 import 'package:birdnerd/screens/wrapper.dart';
 import 'package:birdnerd/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -27,16 +28,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    return  StreamProvider<UserModel?>.value(
-        initialData: null,
-        value: AuthService().onAuthStateChanged,
-        builder: (context, snapshot) {
-          return const MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Bird Nerd',
-            home: Wrapper(),
-          );
-        }
-    );
+    return MultiProvider(
+        providers:[
+          ChangeNotifierProvider.value(
+            value: Birds(),
+          ),
+          StreamProvider<UserModel?>.value(
+              initialData: null,
+              value: AuthService().onAuthStateChanged,
+              builder: (context, snapshot) {
+                return const MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Bird Nerd',
+                  home: Wrapper(),
+                );
+              }
+          )
+        ]
+    )
+      ;
   }
 }

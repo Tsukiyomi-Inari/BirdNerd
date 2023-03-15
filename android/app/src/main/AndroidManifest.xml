@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.durham.birdnerd">
    <application
-        android:label="birdnerd"
+        android:label="Bird Nerd"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@drawable/ic_launcher_foreground">
         <activity
             android:name=".MainActivity"
             android:exported="true"
