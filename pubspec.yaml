@@ -59,9 +59,9 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: false
-  image_path: "assets/BirdNerd_LOGO 2023-02-17 17_04_02.png"
+  image_path: "assets/BirdNerd_LOGO.png"
   adaptive_icon_background: "#191919"
-  adaptive_icon_foreground: "assets/BirdNerd_LOGO 2023-02-17 17_04_02.png"
+  adaptive_icon_foreground: "assets/BirdNerd_LOGO.png"
 
 
 # For information on the generic Dart part of this file, see the

@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
               value: AuthService().onAuthStateChanged,
               builder: (context, snapshot) {
                 return const MaterialApp(
-                  debugShowCheckedModeBanner: false,
+                  //debugShowCheckedModeBanner: false,
                   title: 'Bird Nerd',
                   home: Wrapper(),
                 );

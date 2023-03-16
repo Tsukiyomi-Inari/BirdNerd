@@ -77,12 +77,15 @@ class Birds with ChangeNotifier{
   }
 
 
+  List<Bird> get entries{
+    return _userList;
+  }
 
 
     //Get user life list
    Future<void> get lifeList async {
       final FirebaseAuth uid = FirebaseAuth.instance;
-      final url = Uri.parse('bird-nerd-15f35-default-rtdb.firebaseio.com/userList/$uid.json');
+      final url = Uri.parse('http://bird-nerd-15f35-default-rtdb.firebaseio.com/userList/$uid.json');
       try{
         // Get THIS userList
          final response = await http.get(url);
