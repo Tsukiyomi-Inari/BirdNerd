@@ -1,3 +1,12 @@
+/// home.dart
+/// @authors:   Katherine Bellman, Russell Waring
+/// @version:   1
+/// @since:     2023-02-10
+/// The home screen widget wraps around the core structure of the application,
+/// encapsulating the camera, LifeList, and map pages. Allows a consistent
+/// AppBar and navigation bar throughout the user experience.
+
+
 import 'package:flutter/material.dart';
 import 'package:birdnerd/screens/home/camera.dart';
 import 'package:birdnerd/screens/home/lifelist.dart';
@@ -8,11 +17,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:birdnerd/screens/home/widgets/about.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-/*
-author:   Katherine Bellman, Russell Waring
-version:  1
-since:    2023-02-10
- */
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
