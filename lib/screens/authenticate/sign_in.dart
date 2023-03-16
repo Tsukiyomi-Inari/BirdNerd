@@ -1,3 +1,4 @@
+import 'package:birdnerd/shared/loading.dart';
 import 'package:flutter/material.dart';
 import '../../services/auth.dart';
 
@@ -17,6 +18,9 @@ class _SignInState extends State<SignIn> {
   final AuthService _auth =  AuthService();
   final _formKey = GlobalKey<FormState>();
 
+  // Loading widget
+  bool loading = false;
+
   // Text field state
   String email = '';
   String password = '';
@@ -27,7 +31,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? const Loading() : Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -110,10 +114,14 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                 onPressed: ()async {
                   if(_formKey.currentState!.validate()){
+                    /// Show loading state AFTER validation
+                    setState(() => loading = true);
                     dynamic result = await _auth.signIn(email, password);
                     if(result == null){
+                      /// Set loading state to false if an error occurs.
                       setState(() {
                         error = 'Could not sign in with the credentials';
+                        loading = false;
                       });
                     }
                   }

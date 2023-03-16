@@ -1,3 +1,4 @@
+import 'package:birdnerd/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/auth.dart';
@@ -27,7 +28,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? const Loading() : Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -92,12 +93,14 @@ class _RegisterState extends State<Register> {
               ElevatedButton(
                 onPressed: ()async {
                   if(_formKey.currentState!.validate()){
+                    /// Set loading state AFTER validation
                     setState(()=> loading = true);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Registered Successfully')),
                     );
                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                     if(result == null){
+                      /// If an error occurs during login, set loading to false
                       setState(()  {
                         error = 'Please provide n valid email';
                         loading = false;

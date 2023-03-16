@@ -1,5 +1,12 @@
+/// identification.dart
+/// @authors:   Katherine Bellman, Russell Waring
+/// @version:   1
+/// @since:     2023-02-20
+/// The identification page is the first step in directing the user to confirm
+/// what species of bird has been captured in their photo.
+
 import 'package:flutter/material.dart';
-import 'package:birdnerd/globals.dart' as globals;
+import 'package:birdnerd/shared/globals.dart' as globals;
 import 'dart:io';
 
 class IdentificationScreen extends StatelessWidget {
@@ -35,8 +42,8 @@ class IdentificationScreen extends StatelessWidget {
           )
         ],
       ),
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
+      /// The image is stored as a file on the device. Use the `Image.file`
+      /// constructor with the given path to display the image.
       body: Center(
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,

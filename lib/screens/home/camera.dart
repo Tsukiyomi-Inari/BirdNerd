@@ -1,14 +1,16 @@
+/// camera.dart
+/// @authors:   Katherine Bellman, Russell Waring
+/// @version:   2
+/// @since:     2023-02-17
+/// The camera preview acts as the landing page after a user has successfully
+/// signed in. Allows the user quick access to capturing an image.
+
 import 'package:birdnerd/screens/home/identification.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:birdnerd/globals.dart' as globals;
+import 'package:birdnerd/shared/globals.dart' as globals;
 import 'dart:io';
 
-/*
-author:   Katherine Bellman, Russell Waring
-version:  2
-since:    2023-02-17
- */
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
 
