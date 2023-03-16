@@ -79,7 +79,7 @@ class _SettingsState extends State<Settings> {
           ),
           const SizedBox(height: 20.0),
           ElevatedButton(
-            onPressed: ()async {
+            onPressed: () async {
               await _auth.signOut();
             },
             style: ElevatedButton.styleFrom(

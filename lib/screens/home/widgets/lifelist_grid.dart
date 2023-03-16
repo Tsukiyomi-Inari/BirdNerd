@@ -1,3 +1,7 @@
+///*
+/// @author:   Katherine Bellman, Russell Waring
+/// @version:  1
+/// @since:    2022-02-10
 import 'package:flutter/material.dart';
 import 'package:birdnerd/screens/home/widgets/bird_square.dart';
 import 'package:provider/provider.dart';

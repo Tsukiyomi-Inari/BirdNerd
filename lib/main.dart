@@ -1,3 +1,7 @@
+///*
+/// @author:   Katherine Bellman, Russell Waring
+/// @version:  1
+/// @since:    2023-03-10
 import 'package:birdnerd/model/birds.dart';
 import 'package:birdnerd/screens/wrapper.dart';
 import 'package:birdnerd/services/auth.dart';
@@ -8,11 +12,7 @@ import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'model/user_model.dart';
 
-/*
-author:   Katherine Bellman, Russell Waring
-version:  1
-since:    2023-02-10
- */
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

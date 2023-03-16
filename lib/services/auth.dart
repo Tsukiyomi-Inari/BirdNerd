@@ -1,5 +1,9 @@
+///*
+/// @author:   Katherine Bellman, Russell Waring
+/// @version:  1
+/// @since:    2022-02-10
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
+
 
 import '../model/user_model.dart';
 import 'package:birdnerd/model/birds.dart';

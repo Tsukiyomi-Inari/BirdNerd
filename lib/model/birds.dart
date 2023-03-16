@@ -1,3 +1,7 @@
+///*
+/// @author:   Katherine Bellman, Russell Waring
+/// @version:  1
+/// @since:    2023-03-10
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

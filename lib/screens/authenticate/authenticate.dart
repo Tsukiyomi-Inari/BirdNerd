@@ -1,3 +1,7 @@
+///*
+/// @author:   Katherine Bellman, Russell Waring
+/// @version:  1
+/// @since:    2023-03-10
 import 'package:birdnerd/screens/authenticate/register.dart';
 import 'package:birdnerd/screens/authenticate/sign_in.dart';
 import 'package:flutter/material.dart';

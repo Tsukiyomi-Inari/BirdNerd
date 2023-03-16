@@ -1,3 +1,7 @@
+///*
+/// @author:   Katherine Bellman, Russell Waring
+/// @version:  1
+/// @since:    2023-03-10
 import 'package:birdnerd/screens/home/widgets/lifelist_grid.dart';
 import 'package:flutter/material.dart';
 
