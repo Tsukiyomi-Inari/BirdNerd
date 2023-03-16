@@ -17,20 +17,22 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
-
-  final controller = PageController(initialPage: 1);
-
+  bool _cameraInitialized = false;
   late List<CameraDescription> cameras;
   late CameraController cameraController;
   int direction = 0;
 
+  final controller = PageController(initialPage: 1);
+
+
+
   @override
   void initState(){
-    startCamera(0);
+      startCamera(0);
     super.initState();
   }
 
-  void startCamera(int direction) async {
+  Future<void> startCamera(int direction) async {
     cameras = await availableCameras();
     cameraController = CameraController(
         cameras[direction],
@@ -41,7 +43,9 @@ class _CameraScreenState extends State<CameraScreen> {
       if(!mounted) {
         return;
       }
-      setState(() {}); // refreshes widget?
+      setState(() {
+        _cameraInitialized = true;
+      }); // refreshes widget?
     }).catchError((e){
     });
   }
@@ -55,7 +59,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if(cameraController.value.isInitialized){
+    if(_cameraInitialized && cameraController.value.isInitialized){
       return Scaffold(
         body: Stack(
           children: [

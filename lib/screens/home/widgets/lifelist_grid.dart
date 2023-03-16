@@ -14,11 +14,11 @@ class LifeListGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final birdData = Provider.of<Birds>(context);
-    final birds =  birdData.lifeList;
+    final birds =  birdData.entries;
     //A method to get the birds img url will replace latter
 
     return  GridView.builder(
-      itemCount: birds.hashCode ,
+      itemCount: birds.length ,
       scrollDirection: Axis.vertical,
       padding: const EdgeInsets.all(10.0),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -28,7 +28,7 @@ class LifeListGrid extends StatelessWidget {
         mainAxisSpacing: 10,
       ),
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-        value: birds,
+        value: birds[i],
         child: const BirdImage(),
       ),
     );

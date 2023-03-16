@@ -9,7 +9,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/splash_icon" />
+            android:src="@drawable/ic_launcher" />
     </item>
     <item name="android:windowSplashScreenBehavior">icon_preferred</item>
 
