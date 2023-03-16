@@ -1,17 +1,16 @@
-/// settings.dart
+/// about.dart
 /// @author:    Katherine Bellman, Russell Waring
 /// @version:   2
 /// @since:     2023-03-16
-/// Settings page pop-up separated for modularity purposes.
-/// Provides access to About page and logout option.
+/// About page pop-up separated for modularity purposes.
+/// Provides access to GitHub.
 
-import 'package:birdnerd/screens/home/widgets/about.dart';
-import 'package:birdnerd/screens/home/home.dart';
+import 'package:birdnerd/screens/home/widgets/settings.dart';
+import 'package:birdnerd/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:birdnerd/services/auth.dart';
 
- settings(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
+about(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
   showDialog(
       context: context,
       builder: (context) {
@@ -38,31 +37,24 @@ import 'package:birdnerd/services/auth.dart';
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: 18),),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(child: Text('About')),
                   ),
                   Container(
                     padding: const EdgeInsets.all(8.0),
-                    child: const Text('# birds sighted'),
+                    child: const Text('Note'),
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: 60,
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        /// Launch About page
-                        Navigator.of(context).pop();
-                        about(context, _authInstance, _auth, mounted);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
-                        // fixedSize: Size(250, 50),
-                      ),
-                      child: const Text(
-                        "About",
-                      ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
+                          ' ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud'
+                          ' exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+                          ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum '
+                          'dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,'
+                          ' sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                      style: TextStyle(fontSize: 12),
                     ),
                   ),
                   Container(
@@ -70,18 +62,17 @@ import 'package:birdnerd/services/auth.dart';
                     height: 60,
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      onPressed: () async {
-                        await _auth.signOut();
-                        if(mounted){
-                          Navigator.of(context).pop();
-                        }
+                      onPressed: () {
+                        /// Launch Settings pop up
+                        Navigator.of(context).pop();
+                        settings(context, _authInstance, _auth, mounted);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.black,
                         // fixedSize: Size(250, 50),
                       ),
                       child: const Text(
-                        "Sign out",
+                        "Back",
                       ),
                     ),
                   ),

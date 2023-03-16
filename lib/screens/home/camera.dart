@@ -1,14 +1,17 @@
+/// camera.dart
+/// @authors:   Katherine Bellman, Russell Waring
+/// @version:   2
+/// @since:     2023-02-17
+/// The camera preview acts as the landing page after a user has successfully
+/// signed in. Allows the user quick access to capturing an image.
+
 import 'package:birdnerd/screens/home/identification.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:birdnerd/globals.dart' as globals;
+import 'package:birdnerd/shared/globals.dart' as globals;
+import 'package:location/location.dart';
 import 'dart:io';
 
-/*
-author:   Katherine Bellman, Russell Waring
-version:  2
-since:    2023-02-17
- */
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
 
@@ -17,6 +20,11 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
+
+  /// Loading boolean
+  ///bool loading = false;
+
+  // Location variables
 
   final controller = PageController(initialPage: 1);
 
@@ -75,11 +83,15 @@ class _CameraScreenState extends State<CameraScreen> {
             ),
             GestureDetector(
               onTap: () async{
+                // First, capture the location data for use with map
+
+                // Second, capture image to pass to next screen
                 try {
                   cameraController.takePicture().then((XFile? file) {
                     if(!mounted) return;
                       if(file != null) {
                         //print("Picture saved to ${file.path}");
+                        // Store image path for referencing on next page
                         globals.filepath = file.path;
                         //Navigator.pushNamed(context, '/identification');
                         Navigator.push(
