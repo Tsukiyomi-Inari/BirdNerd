@@ -1,7 +1,7 @@
 import 'package:birdnerd/screens/home/identification.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:birdnerd/globals.dart' as globals;
+import 'package:birdnerd/shared/globals.dart' as globals;
 import 'dart:io';
 
 /*

@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:birdnerd/screens/home/camera.dart';
 import 'package:birdnerd/screens/home/lifelist.dart';
 import 'package:birdnerd/screens/home/map.dart';
-import 'package:birdnerd/screens/home/widgets/settings.dart';
+import 'package:birdnerd/screens/home/widgets/settings.dart' as Settings;
 import 'package:birdnerd/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:birdnerd/model/birds.dart';
-import 'package:provider/provider.dart';
-
-import 'lifelist.dart';
+import 'package:birdnerd/screens/home/widgets/about.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 /*
 author:   Katherine Bellman, Russell Waring
@@ -23,22 +21,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
-  @override
-  void initState(){
-    super.initState();
-  }
-
-  var _isInit = true;
-  @override
-  void didChangeDependencies(){
-    if(_isInit){
-      Provider.of<Birds>(context).lifeList;
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
 
   int _currentIndex = 0;
   final PageController _pageController = PageController(initialPage: 1);
@@ -68,13 +50,21 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.teal,
         centerTitle: false,
         title: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: 18),),
+        // actions: [
+        //   TextButton.icon(
+        //     icon: const Icon(Icons.person),
+        //     label: const Text('Logout'),
+        //     onPressed: () async {
+        //       await _auth.signOut();
+        //     },
+        //   )
+        // ],
         actions: <Widget>[
           IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Settings()),
-                );
+                setState(() {
+                  Settings.settings(context, _authInstance, _auth, mounted);
+                });
               },
               style: TextButton.styleFrom(
                   foregroundColor: Colors.white
@@ -84,22 +74,23 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: PageView(
         controller: _pageController,
+        //physics: const FixedExtentScrollPhysics(),
         onPageChanged: (newIndex) {
           setState(() {
             _currentIndex = newIndex;
           });
         },
-        children: const [
+        children: [
           LifeList(),
           CameraScreen(),
-          Map(),
+          MapScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         items: _bottomNavigationBarItems,
         onTap: (index) {
-          _pageController.animateToPage(index, duration: const Duration(milliseconds: 200), curve: Curves.ease);
+          _pageController.animateToPage(index, duration: Duration(milliseconds: 200), curve: Curves.ease);
         },
         //type: BottomNavigationBarType.fixed,
       ),
