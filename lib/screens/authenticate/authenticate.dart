@@ -1,6 +1,6 @@
 /// authenticate.dart
 /// author:   Katherine Bellman, Russell Waring
-/// date:     2023-02-18
+/// date:     2023-02-10
 /// version:  1
 /// The authenticate widget handles which view is presented to the user between
 /// sign-in and register. This strategy was adopted from the following resource:

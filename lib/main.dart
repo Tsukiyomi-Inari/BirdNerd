@@ -1,7 +1,7 @@
 /// main.dart
 /// author:   Katherine Bellman, Russell Waring
-/// date:     2023-02-10
-/// version:  1
+/// date:     2023-03-10
+/// version:  2
 /// The entry-point into the application. Directs to the wrapper to decide
 /// which view is returned.
 

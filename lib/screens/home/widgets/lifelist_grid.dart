@@ -1,7 +1,7 @@
 /// lifelist_grid.dart
 /// author:   Katherine Bellman, Russell Waring
-/// date:     2023-03-01
-/// version:  1
+/// date:     2023-03-10
+/// version:  2
 /// The lifelist_grid provides a layout for the lifelist screen.
 
 import 'package:flutter/material.dart';

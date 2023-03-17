@@ -1,6 +1,6 @@
 /// auth.dart
 /// author:   Katherine Bellman, Russell Waring
-/// date:     2023-02-18
+/// date:     2023-02-10
 /// version:  1
 /// Contains the logic for signing in, registering, or signing out of the
 /// application. Technique learned from this tutorial series:

@@ -10,7 +10,6 @@
 
 import 'package:birdnerd/shared/loading.dart';
 import 'package:flutter/material.dart';
-
 import '../../services/auth.dart';
 
 class SignIn  extends StatefulWidget {
