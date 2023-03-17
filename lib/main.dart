@@ -1,3 +1,10 @@
+/// main.dart
+/// author:   Katherine Bellman, Russell Waring
+/// date:     2023-02-10
+/// version:  1
+/// The entry-point into the application. Directs to the wrapper to decide
+/// which view is returned.
+
 import 'package:birdnerd/model/birds.dart';
 import 'package:birdnerd/screens/wrapper.dart';
 import 'package:birdnerd/services/auth.dart';
@@ -8,11 +15,6 @@ import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'model/user_model.dart';
 
-/*
-author:   Katherine Bellman, Russell Waring
-version:  1
-since:    2023-02-10
- */
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

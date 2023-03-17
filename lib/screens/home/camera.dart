@@ -86,6 +86,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     if(!mounted) return;
                       if(file != null) {
                         //print("Picture saved to ${file.path}");
+                        /// Stores the filepath of captured image into globals
                         globals.filepath = file.path;
                         //Navigator.pushNamed(context, '/identification');
                         Navigator.push(

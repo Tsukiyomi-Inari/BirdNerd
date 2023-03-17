@@ -1,3 +1,9 @@
+/// birds.dart
+/// author:   Katherine Bellman, Russell Waring
+/// date:     2023-03-01
+/// version:  1
+/// Class for handling information related to birds.
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

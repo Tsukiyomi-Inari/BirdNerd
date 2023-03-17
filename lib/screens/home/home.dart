@@ -53,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.teal,
         centerTitle: false,
+        /// Checks for user to display id in app bar
         title: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: 18),),
         // actions: [
         //   TextButton.icon(

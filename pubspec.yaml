@@ -62,7 +62,7 @@ flutter_icons:
   android: true
   ios: false
   image_path: "assets/BirdNerd_LOGO.png"
-  adaptive_icon_background: "#191919"
+  adaptive_icon_background: "#ffffff"
   adaptive_icon_foreground: "assets/BirdNerd_LOGO.png"
 
 

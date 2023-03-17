@@ -13,6 +13,7 @@ class IdentificationScreen extends StatelessWidget {
   //final String imagePath;
 
   final String imagePath = globals.filepath;
+
   //const IdentificationScreen({super.key, required this.imagePath});
   IdentificationScreen({Key? key}) : super(key: key);
 
@@ -56,7 +57,9 @@ class IdentificationScreen extends StatelessWidget {
                 //height: double.infinity,
                 color: Colors.teal,
                 padding: const EdgeInsets.all(15.0),
-                child: Image.file(File(imagePath)),
+                /// Using hardcoded image for testing purposes
+                //child: Image.file(File(imagePath)),
+                child: Image.network('https://upload.wikimedia.org/wikipedia/commons/5/5c/Male_northern_cardinal_in_Central_Park_%2852612%29.jpg'),
               ),
             ),
             const SizedBox(height:30.0),

@@ -1,3 +1,9 @@
+/// welcome.dart
+/// author:   Katherine Bellman, Russell Waring
+/// date:     2023-02-15
+/// version:  1
+/// Originally a landing page idea, may be scrapped moving forward.
+
 import 'package:flutter/material.dart';
 import 'package:birdnerd/screens/home/camera.dart';
 

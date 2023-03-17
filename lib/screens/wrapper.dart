@@ -1,3 +1,13 @@
+/// wrapper.dart
+/// author:   Katherine Bellman, Russell Waring
+/// date:     2023-02-18
+/// version:  1
+/// The wrapper monitors for whether a user is logged in or not, and returns
+/// a screen accordingly (sign-in vs content). Adopted from the series:
+/// The Net Ninja. (2019, November 20). Flutter &amp; Firebase app build.
+/// YouTube. Retrieved March 10, 2023, from
+/// https://www.youtube.com/playlist?list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC
+
 import 'package:birdnerd/screens/home/widgets/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
