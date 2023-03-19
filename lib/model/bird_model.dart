@@ -1,3 +1,9 @@
+/// bird_model.dart
+/// author:   Katherine Bellman, Russell Waring
+/// date:     2023-03-01
+/// version:  1
+/// Class for handling information related to birds.
+
 import 'package:flutter/material.dart';
 
 class Bird with ChangeNotifier{

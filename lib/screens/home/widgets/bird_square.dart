@@ -1,3 +1,10 @@
+/// bird_square.dart
+/// author:   Katherine Bellman, Russell Waring
+/// date:     2023-03-01
+/// version:  1
+/// This is an object to represent a bird that will occur repeatably in the
+/// lifelist_grid, presented in the lifelist screen.
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../model/bird_model.dart';

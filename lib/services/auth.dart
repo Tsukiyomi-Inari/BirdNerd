@@ -1,9 +1,15 @@
-///*
-/// @author:   Katherine Bellman, Russell Waring
-/// @version:  1
-/// @since:    2022-02-10
-import 'package:firebase_auth/firebase_auth.dart';
+/// auth.dart
+/// author:   Katherine Bellman, Russell Waring
+/// date:     2023-02-10
+/// version:  1
+/// Contains the logic for signing in, registering, or signing out of the
+/// application. Technique learned from this tutorial series:
+/// The Net Ninja. (2019, November 20). Flutter &amp; Firebase app build.
+/// YouTube. Retrieved March 10, 2023, from
+/// https://www.youtube.com/playlist?list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 import '../model/user_model.dart';
 import 'package:birdnerd/model/birds.dart';

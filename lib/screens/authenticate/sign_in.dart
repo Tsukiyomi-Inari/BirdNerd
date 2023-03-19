@@ -1,3 +1,13 @@
+/// sign-in.dart
+/// author:   Katherine Bellman, Russell Waring
+/// date:     2023-02-18
+/// version:  1
+/// The sign-in screen provides a simple interface for users to sign-in to use
+/// our application. This concept was learned from the following series:
+/// The Net Ninja. (2019, November 20). Flutter &amp; Firebase app build.
+/// YouTube. Retrieved March 10, 2023, from
+/// https://www.youtube.com/playlist?list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC
+
 import 'package:birdnerd/shared/loading.dart';
 import 'package:flutter/material.dart';
 import '../../services/auth.dart';

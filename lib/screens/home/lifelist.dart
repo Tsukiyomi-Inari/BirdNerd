@@ -1,7 +1,11 @@
-///*
-/// @author:   Katherine Bellman, Russell Waring
-/// @version:  1
-/// @since:    2023-03-10
+/// lifelist.dart
+/// author:   Katherine Bellman, Russell Waring
+/// date:     2023-03-10
+/// version:  2
+/// In birding, a “life list” is a list of all the birds a person has seen or
+/// heard. The lifelist screen represents birds discovered by the user based in
+/// the region of Durham.
+
 import 'package:birdnerd/screens/home/widgets/lifelist_grid.dart';
 import 'package:flutter/material.dart';
 
