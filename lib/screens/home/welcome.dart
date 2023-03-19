@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:birdnerd/screens/home/camera.dart';
 
 
 /*

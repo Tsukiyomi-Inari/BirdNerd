@@ -2,14 +2,13 @@ import 'package:birdnerd/shared/loading.dart';
 import 'package:flutter/material.dart';
 import '../../services/auth.dart';
 
-
-
 class SignIn  extends StatefulWidget {
 
   final Function toggleView;
-  const SignIn({required this.toggleView});
+  const SignIn({super.key, required this.toggleView});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SignInState createState() => _SignInState();
 }
 
@@ -120,7 +119,7 @@ class _SignInState extends State<SignIn> {
                     if(result == null){
                       /// Set loading state to false if an error occurs.
                       setState(() {
-                        error = 'Could not sign in with the credentials';
+                        error = 'Error: Could not sign in with the credentials';
                         loading = false;
                       });
                     }

@@ -14,8 +14,6 @@ import 'package:birdnerd/screens/home/map.dart';
 import 'package:birdnerd/screens/home/widgets/settings.dart' as Settings;
 import 'package:birdnerd/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:birdnerd/screens/home/widgets/about.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -84,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = newIndex;
           });
         },
-        children: [
+        children: const [
           LifeList(),
           CameraScreen(),
           MapScreen(),
@@ -94,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _currentIndex,
         items: _bottomNavigationBarItems,
         onTap: (index) {
-          _pageController.animateToPage(index, duration: Duration(milliseconds: 200), curve: Curves.ease);
+          _pageController.animateToPage(index, duration: const Duration(milliseconds: 200), curve: Curves.ease);
         },
         //type: BottomNavigationBarType.fixed,
       ),

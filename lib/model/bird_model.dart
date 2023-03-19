@@ -23,19 +23,6 @@ class Bird with ChangeNotifier{
     notifyListeners();
   }
 
-  factory Bird.fromJson(Map<String, dynamic> json) => Bird(
-      id: json['Id'],
-      birdCommon: json['Common Name'],
-      birdScientific: json['Scientific Name'],
-      imageUrl: json['Img Url']
-  );
 
-  Map<String, dynamic> toJson() => {
-    'Id': id,
-    'Common Name' : birdCommon,
-    'Scientific Name': birdScientific,
-    'Img Url': imageUrl,
-    'Taken': isTaken
-  };
 
 }

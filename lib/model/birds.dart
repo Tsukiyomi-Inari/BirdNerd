@@ -10,38 +10,36 @@ import 'package:birdnerd/model/bird_model.dart';
 
 class Birds with ChangeNotifier{
 
- /*final List<Bird> _lifeList = [
-    Bird(
-        id: "1",
-        birdCommon: "Alder/Willow Flycatcher (Traill's Flycatcher)",
-        birdScientific: "Empidonax alnorum/traillii",
-        imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/481076421"),
-    Bird(
-        id: "2",
-        birdCommon: "American Avocet",
-        birdScientific: "Recurvirostra americana",
-        imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/341874291"),
-    Bird(
-        id: "3",
-        birdCommon: "American Black Duck",
-        birdScientific: "Anas rubripes",
-        imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/475958481"),
-    Bird(
-        id: "4",
-        birdCommon: "American Crow",
-        birdScientific: "Corvus brachyrhynchos",
-        imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/393271701"),
-    Bird(
-        id: "5",
-        birdCommon: "American Goldfinch",
-        birdScientific: "Spinus tristis",
-        imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/3456401051")
 
-  ];*/
 
- List<Bird> _userList = [];
+ List<Bird> _userList = [
+   Bird(
+     id: "1",
+     birdCommon: "Alder/Willow Flycatcher (Traill's Flycatcher)",
+     birdScientific: "Empidonax alnorum/traillii",
+     imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/481076421"),
+   Bird(
+       id: "2",
+       birdCommon: "American Avocet",
+       birdScientific: "Recurvirostra americana",
+       imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/341874291"),
+   Bird(
+       id: "3",
+       birdCommon: "American Black Duck",
+       birdScientific: "Anas rubripes",
+       imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/475958481"),
+   Bird(
+       id: "4",
+       birdCommon: "American Crow",
+       birdScientific: "Corvus brachyrhynchos",
+       imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/393271701"),
+   Bird(
+       id: "5",
+       birdCommon: "American Goldfinch",
+       birdScientific: "Spinus tristis",
+       imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/244522141")];
 
-  //Create New User List
+ /* //Create New User List
   Future<void> userLifeList(String uid) async {
     final url2 = Uri.parse(
         'http://bird-nerd-15f35-default-rtdb.firebaseio.com/Durham_Birds_CA.json');
@@ -78,7 +76,7 @@ class Birds with ChangeNotifier{
     catch (error) {
       rethrow;
     }
-  }
+  }*/
 
 
   List<Bird> get entries{
