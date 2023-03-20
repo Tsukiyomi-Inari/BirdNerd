@@ -17,7 +17,6 @@ double? longitude;
 
 LatLng location = LatLng(43.941990, -78.894478);
 
-
 // // Marker test
 // Map<String, Marker> markers = {
 //   'test': location,

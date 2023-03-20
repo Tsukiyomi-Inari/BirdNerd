@@ -16,9 +16,10 @@ import '../../services/auth.dart';
 class Register extends StatefulWidget{
 
   final Function toggleView;
-  const Register({required this.toggleView});
+  const Register({super.key, required this.toggleView});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RegisterState createState() =>  _RegisterState();
 }
 

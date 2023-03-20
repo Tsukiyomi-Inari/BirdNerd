@@ -11,7 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:birdnerd/services/auth.dart';
 
-settings(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
+settings(context, FirebaseAuth authInstance, AuthService auth, mounted) {
   showDialog(
       context: context,
       builder: (context) {
@@ -40,7 +40,7 @@ settings(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: 18),),
+                    child: Text(authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: 18),),
                   ),
                   Container(
                     padding: const EdgeInsets.all(8.0),
@@ -54,10 +54,10 @@ settings(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
                       onPressed: () {
                         /// Launch About page
                         Navigator.of(context).pop();
-                        about(context, _authInstance, _auth, mounted);
+                        about(context, authInstance, auth, mounted);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
+                        backgroundColor: Colors.teal,
                         // fixedSize: Size(250, 50),
                       ),
                       child: const Text(
@@ -71,13 +71,13 @@ settings(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       onPressed: () async {
-                        await _auth.signOut();
+                        await auth.signOut();
                         if(mounted){
                           Navigator.of(context).pop();
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
+                        backgroundColor: Colors.teal,
                         // fixedSize: Size(250, 50),
                       ),
                       child: const Text(

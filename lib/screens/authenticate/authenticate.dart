@@ -16,6 +16,7 @@ class Authenticate extends StatefulWidget {
   const Authenticate({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AuthenticateState createState() => _AuthenticateState();
 }
 

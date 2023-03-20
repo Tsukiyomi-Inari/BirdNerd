@@ -8,76 +8,14 @@
 import 'package:flutter/material.dart';
 import 'package:birdnerd/shared/globals.dart' as globals;
 import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:async/async.dart';
-import 'dart:async';
-import 'package:path/path.dart';
-import 'dart:convert';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart';
 
-class IdentificationScreen extends StatefulWidget {
-  const IdentificationScreen({Key? key}) : super(key: key);
+class IdentificationScreen extends StatelessWidget {
+  //final String imagePath;
 
-  @override
-  State<IdentificationScreen> createState() => _IdentificationScreenState();
-}
-
-class _IdentificationScreenState extends State<IdentificationScreen> {
-
-  // Import the imagePath of the captured image from the globals library
   final String imagePath = globals.filepath;
-  // Identified bird name is passed to this variable
-  late String _scientificName;
-  // Used for loading state before result is identified
-  late bool _isLoading = true;
 
-  /// Override initialize state method to immediately call for image recognition
-  @override
-  void initState() {
-    super.initState();
-    _getScientificName();
-  }
-
-  Future<void> _getScientificName() async {
-    final imageFile = File(imagePath);
-    await getScientificName(imageFile);
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
-  /// getScientificName(File imageFile)
-  /// imageFile: absolute path of captured image
-  /// Method that sends post request of image to RapidAPI Bird-Classifier and
-  /// returns JSON result set.
-  Future<void> getScientificName(File imageFile) async {
-    final url = Uri.parse('https://bird-classifier.p.rapidapi.com/BirdClassifier/prediction?results=1');
-    final request = http.MultipartRequest('POST', url)
-      ..headers.addAll({
-        'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
-        'X-Rapidapi-Key': 'cbe9ca80d5msh13ad95efa239d2bp1a09fejsna8ba16c0268d',
-        'X-Rapidapi-Host': 'bird-classifier.p.rapidapi.com',
-      });
-    final fileStream = http.ByteStream(imageFile.openRead());
-    final fileLength = await imageFile.length();
-    final multipartFile = http.MultipartFile('image', fileStream, fileLength, filename: imageFile.path);
-
-    request.files.add(multipartFile);
-
-    final response = await request.send();
-    final responseData = await response.stream.bytesToString();
-    final decodedData = jsonDecode(responseData);
-    Map<String, dynamic> birdPrediction = decodedData[0];
-    print('Wow, it\s a ${birdPrediction['scientificName']}!');
-    // print(decodedData[0].toString());
-    _scientificName = birdPrediction['scientificName'];
-
-    /// TODO: compare _scientificName with names in database, return common name and image
-
-
-
-  }
+  //const IdentificationScreen({super.key, required this.imagePath});
+  IdentificationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +28,7 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
           'Confirm if there is a match',
           style: TextStyle(
               fontSize: 18,
-              color: Colors.black54
+              color: Colors.white
           ),
         ),
         actions: <Widget>[
@@ -99,12 +37,27 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
               Icons.settings,
               color: Colors.white,
             ),
-            onPressed: () {
-              // do something
-            },
+            onPressed: () => showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('AlertDialog Title'),
+                content: const Text( "Teset" ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            ),
           )
         ],
       ),
+
       /// The image is stored as a file on the device. Use the `Image.file`
       /// constructor with the given path to display the image.
       body: Center(
@@ -123,7 +76,7 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                 child: Image.file(File(imagePath)),
               ),
             ),
-            const SizedBox(height:30.0),
+            const SizedBox(height: 30.0),
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(15.0),
@@ -131,14 +84,43 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                 width: double.infinity,
                 color: Colors.teal,
                 child: Center(
-                  child: _isLoading ? CircularProgressIndicator() : Text(_scientificName),
+                  //child: _isLoading ? CircularProgressIndicator() : Text(_scientificName),
+                  child: CarouselSlider.builder(
+                        itemCount: imgList.length,
+                        carouselController: _carouselController,
+                        itemBuilder: (ctx, index, realIdx) {
+                          currentIndex = index.toString();
+                          return Center(
+                              child: Image.network(imgList[index],
+                                  fit: BoxFit.cover,
+                                  width: 1000));
+                        }, options: CarouselOptions(
+                      aspectRatio: 2.0,
+                      enlargeCenterPage: true,
+                    ))
                 ),
               ),
             ),
             TextButton(
-              onPressed: () {},
-              style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.cyan),foregroundColor: MaterialStateProperty.all<Color>(Colors.black)),
+              onPressed: () async {
+                prediction.getPredictions(
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Eopsaltria_australis_-_Mogo_Campground.jpg/220px-Eopsaltria_australis_-_Mogo_Campground.jpg');
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Colors.teal),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    Colors.white),
+
+              ),
               child: const Text('CONFIRM'),
+
+
+
+
+              // onPressed: () {},
+              // style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.cyan),foregroundColor: MaterialStateProperty.all<Color>(Colors.black)),
+              // child: const Text('CONFIRM'),
             ),
           ],
         ),

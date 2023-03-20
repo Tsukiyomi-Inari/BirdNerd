@@ -5,7 +5,6 @@
 /// Originally a landing page idea, may be scrapped moving forward.
 
 import 'package:flutter/material.dart';
-import 'package:birdnerd/screens/home/camera.dart';
 
 
 /*

@@ -19,7 +19,7 @@ class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  late final Birds birdData;
+  //late final Birds birdData;
 
   //create userModel obj on Firebase User
   UserModel? _userModelFromFirebase(User? user){
@@ -61,7 +61,15 @@ class AuthService {
   Future signIn(String email, String password) async {
     try{
       return await _auth.signInWithEmailAndPassword(email: email, password: password);
-    }catch(error){
+
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+    catch(error){
       print(error.toString());
       return null;
     }
@@ -70,11 +78,18 @@ class AuthService {
 
   //register with email + pass
   Future registerWithEmailAndPassword(String email, String password) async {
-    try{
-      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       User user = result.user!;
-      birdData.userLifeList(user.uid.toString());
       return _userModelFromFirebase(user);
+    }
+      on FirebaseAuthException catch (error) {
+      if (error.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (error.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
     }catch(error) {
       print(error.toString());
       return null;

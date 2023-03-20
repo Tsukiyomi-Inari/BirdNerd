@@ -68,7 +68,7 @@ about(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
                         settings(context, _authInstance, _auth, mounted);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
+                        backgroundColor: Colors.teal,
                         // fixedSize: Size(250, 50),
                       ),
                       child: const Text(
