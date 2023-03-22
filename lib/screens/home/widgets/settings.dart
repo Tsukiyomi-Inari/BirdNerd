@@ -29,23 +29,60 @@ settings(context, FirebaseAuth authInstance, AuthService auth, mounted) {
           //title: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: ),)
           //style: TextStyle(fontSize: 24.0),
           //),
-          content: Container(
+          content: SizedBox(
             height: 400,
+            width: 250,
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 8.0,bottom: 8.0, top: 1.0, right: 1.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: 18),),
-                  ),
                   Container(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const Text('# birds sighted'),
+                    alignment: Alignment.topRight,
+                  child: IconButton(onPressed: (){
+                    Navigator.pop(context);
+                  }, icon:  Icon(
+                      Icons.close,
+                    color: Colors.lightGreen.shade800 ,
+                    size: 30.00,
+                    opticalSize: 20.00,
+                  ) )),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 8.0, right: 8.0, left: 8.0),
+                    child: Text(authInstance.currentUser?.email ?? 'Anonymous' ,
+                      style: TextStyle(fontSize: 18,
+                          fontFamily: "Tenko",
+                          fontWeight: FontWeight.w800,
+                          fontStyle: FontStyle.normal ,
+                          color: Colors.lightGreen.shade800
+                      ) ,
+                      textAlign: TextAlign.center,),
                   ),
+
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 60.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children:[Text('# birds sighted:  ',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: "Tenko",
+                          fontWeight: FontWeight.bold,
+                          color: Colors.lightGreen.shade800,
+                      ) ,
+                    ),
+
+                  const Text(
+                    " 0 ",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w900,
+                      fontFamily: "Oswald"
+                    ),
+                  ),]) ),
                   Container(
                     width: double.infinity,
                     height: 60,
@@ -57,12 +94,17 @@ settings(context, FirebaseAuth authInstance, AuthService auth, mounted) {
                         about(context, authInstance, auth, mounted);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
-                        // fixedSize: Size(250, 50),
+                        backgroundColor: Colors.lightGreen.shade800,
+                        //fixedSize: const Size(200, 50),
                       ),
                       child: const Text(
                         "About",
+                        style: TextStyle(
+                            fontFamily: "Tenko",
+                            fontWeight: FontWeight.bold
+                        ) ,
                       ),
+
                     ),
                   ),
                   Container(
@@ -77,11 +119,15 @@ settings(context, FirebaseAuth authInstance, AuthService auth, mounted) {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
+                        backgroundColor: Colors.lightGreen.shade800,
                         // fixedSize: Size(250, 50),
                       ),
                       child: const Text(
                         "Sign out",
+                        style: TextStyle(
+                          fontFamily: "Tenko",
+                          fontWeight: FontWeight.bold
+                        ) ,
                       ),
                     ),
                   ),

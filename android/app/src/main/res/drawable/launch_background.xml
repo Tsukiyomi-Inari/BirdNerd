@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Modify this file to customize your launch splash screen -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item>
-        <color android:color="@color/splash" />
+        <bitmap android:gravity="fill" android:src="@drawable/background"/>
     </item>
-
     <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/ic_launcher" />
+        <bitmap android:gravity="center" android:src="@drawable/splash"/>
     </item>
-    <item name="android:windowSplashScreenBehavior">icon_preferred</item>
-
 </layer-list>

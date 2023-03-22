@@ -31,17 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
   final _authInstance = FirebaseAuth.instance;
 
   final _bottomNavigationBarItems = [
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.list, color: Colors.teal),
-        label: 'List'
+    BottomNavigationBarItem(
+        icon: Icon(Icons.map, color: Colors.lightGreen.shade800 ),
+        label: 'Map'
     ),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.camera_alt_outlined, color: Colors.teal),
+     BottomNavigationBarItem(
+        icon: Icon(Icons.camera_alt_outlined, color: Colors.lightGreen.shade800),
         label: 'Camera')
     ,
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.map, color: Colors.teal),
-        label: 'Map'
+    BottomNavigationBarItem(
+    icon: Icon(Icons.list, color: Colors.lightGreen.shade800),
+    label: 'List'
     ),
   ];
 
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.lightGreen.shade800,
         centerTitle: false,
         /// Checks for user to display id in app bar
         title: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: 18),),
@@ -84,9 +84,9 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
         children: const [
-          LifeList(),
-          CameraScreen(),
           MapScreen(),
+          CameraScreen(),
+          LifeList(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

@@ -1,9 +1,15 @@
+
+import 'dart:core';
+import 'dart:ffi';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:birdnerd/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:birdnerd/shared/globals.dart';
+
+
 
 const LatLng currentLocation = LatLng(43.941990, -78.894478);
 
@@ -19,6 +25,12 @@ class _MapScreenState extends State<MapScreen> {
   // Future<Position> _getCurrentLocation() async{
   //
   // }
+  late final String _mapStyle = stylezMap as String  ;
+
+  @override
+  void initState(){
+    super.initState();
+  }
 
 
   final AuthService _auth =  AuthService();
@@ -27,7 +39,10 @@ class _MapScreenState extends State<MapScreen> {
   /// State level variables
   late GoogleMapController _mapController;
   final Map<String, Marker> _markers = {};
+  final String mapIdz = "a5fe8f0293a5331a";
   //Map<String, Marker> _markers = globals.markers;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +55,11 @@ class _MapScreenState extends State<MapScreen> {
         initialCameraPosition: const CameraPosition(
           target: currentLocation,
           zoom: 14,
+
         ),
         onMapCreated: (controller) {
           _mapController = controller;
+          _mapController.setMapStyle(_mapStyle);
           addMarker('test', currentLocation);
         },
         markers: _markers.values.toSet(),

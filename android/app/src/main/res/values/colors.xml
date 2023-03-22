@@ -1,5 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">#FFFFFF</color>
-    <color name="splash">#FDFFFF</color>
+    <color name="ic_launcher_background">#58901F</color>
+    <color name="splash">
+        <Canvas>
+            <Canvas>
+                <Clip>
+                    <Path FillMode="Winding">
+                        <PathFigure IsClosed="True">
+                            <PolyLine LineColor="#FF000000">
+                                <Point X="0" Y="0" />
+                                <Point X="0" Y="1230" />
+                            </PolyLine>
+                            <PolyLine LineColor="#FF000000">
+                                <Point X="0" Y="1230" />
+                                <Point X="1020" Y="1230" />
+                            </PolyLine>
+                            <PolyLine LineColor="#FF000000">
+                                <Point X="1020" Y="1230" />
+                                <Point X="1020" Y="0" />
+                            </PolyLine>
+                            <PolyLine LineColor="#FF000000">
+                                <Point X="1020" Y="0" />
+                                <Point X="0" Y="0" />
+                            </PolyLine>
+                        </PathFigure>
+                    </Path>
+                </Clip>
+                <Path FillMode="Alternate" RenderTransform="1 0 0 -1 0 1230">
+                    <Pen Alignment="Center" DashCap="Flat" DashOffset="0" DashStyle="Solid" EndCap="Flat" LineJoin="Miter" MiterLimit="10" StartCap="Flat" Width="1.921875">
+                        <Brush>
+                            <SolidBrush Color="#00FFFFFF" />
+                        </Brush>
+                    </Pen>
+                    <PathFigure IsClosed="True">
+                        <PolyLine LineColor="#FF000000">
+                            <Point X="140.99998" Y="1231.9219" />
+                            <Point X="140.99998" Y="1231.9219" />
+                        </PolyLine>
+                        <PolyLine LineColor="#FF000000">
+                            <Point X="140.99998" Y="1231.9219" />
+                            <Point X="855.9375" Y="1231.9219" />
+                        </PolyLine>
+                        <PolyLine LineColor="#FF000000">
+                            <Point X="855.9375" Y="1231.9219" />
+                            <Point X="855.9375" Y="-3.84375" />
+                        </PolyLine>
+                        <PolyLine LineColor="#FF000000">
+                            <Point X="855.9375" Y="-3.84375" />
+                            <Point X="140.99998" Y="-3.84375" />
+                        </PolyLine>
+                    </PathFigure>
+                </Path>
+            </Canvas>
+        </Canvas>
+    </color>
 </resources>

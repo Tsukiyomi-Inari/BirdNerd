@@ -3,6 +3,7 @@
 /// @version:  1
 /// @since:    2023-03-10
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:birdnerd/model/birds.dart';
 import 'package:birdnerd/screens/wrapper.dart';
@@ -46,13 +47,23 @@ class MyApp extends StatelessWidget {
                   //debugShowCheckedModeBanner: false,
                   title: 'Bird Nerd',
                   theme: ThemeData(
+                   fontFamily:  'Oswald',
                     buttonTheme: ButtonTheme.of(context).copyWith(
-                      buttonColor: Colors.teal,
+                      buttonColor: Colors.lightGreen.shade800,
                       textTheme: ButtonTextTheme.primary,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    ), colorScheme: ColorScheme.fromSwatch(
-                        primarySwatch: Colors.teal).copyWith(
-                        background: Colors.white).copyWith(secondary: Colors.tealAccent)
+                    ), colorScheme: ColorScheme(
+                      brightness: Brightness.light,
+                      primary: Colors.lightGreen.shade800,
+                      onPrimary: Colors.white,
+                      secondary: Colors.lightGreen.shade200,
+                      onSecondary: Colors.white,
+                      error: Colors.redAccent,
+                      onError: Colors.black,
+                      background: Colors.white,
+                      onBackground: Colors.black,
+                      surface: Colors.white,
+                      onSurface: Colors.lightGreen.shade800)
                   ),
                   home: const Wrapper(),
                 );

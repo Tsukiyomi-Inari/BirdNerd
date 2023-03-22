@@ -47,6 +47,8 @@ dependencies:
   geolocator: ^9.0.2
   carousel_slider: ^4.2.1
   flutter_dotenv: ^5.0.2
+  flutter_native_splash: ^2.2.19
+
 
 dev_dependencies:
   flutter_test:
@@ -63,9 +65,18 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: false
-  image_path: "assets/BirdNerd_LOGO.png"
-  adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: "assets/BirdNerd_LOGO.png"
+  image_path: "lib/assets/launcher_icon.png"
+  adaptive_icon_background: "#58901F"
+  adaptive_icon_foreground: "lib/assets/Icon.png"
+
+flutter_native_splash:
+  background_image: "lib/assets/background.png"
+  image:  "lib/assets/BirdNerd_mark.png"
+
+  android_12:
+    image: "lib/assets/BirdNerd_mark.png"
+    background_image: "lib/assets/background.png"
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -83,6 +94,12 @@ flutter:
 assets:
   - lib/.env
   - lib/.env.production
+  - lib/assets/unTaken-ListItem.png
+  - lib/assets/mapStyle.txt
+  - lib/assets/mapStyle.json
+  - lib/assets/BirdNerd_mark.png
+  - lib/assets/splash_BG.png
+  - lib/assets/background.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
@@ -97,7 +114,15 @@ assets:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+fonts:
+     - family: Teko
+       fonts:
+         - asset: lib/assets/Tenko-Bold.ttf
+         - style: bold
+         - asset: lib/assets/Tenko-Medium.ttf
+     - family: Oswald
+       fonts:
+           - asset: lib/assets/Oswald-VariableFont_wght.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

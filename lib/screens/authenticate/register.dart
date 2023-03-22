@@ -40,9 +40,9 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return loading ? const Loading() : Scaffold(
-      backgroundColor: Colors.white,
+
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.lightGreen.shade800,
         elevation: 0.0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -65,19 +65,58 @@ class _RegisterState extends State<Register> {
           )],
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-        child: Form(
+         alignment:  const Alignment(0.0, 0.0),
+        decoration:  const BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/bird-nerd-15f35.appspot.com/o/Splash%20background%20color.png?alt=media&token=d56e2f5a-2d56-47fc-9a28-0de2108eb82d"),
+              fit: BoxFit.cover,
+            ),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 25.0),
+        child:Container(
+          alignment:  const Alignment(0.0, 0.0),
+          margin: const EdgeInsets.symmetric(vertical: 25.00, horizontal: 5.00),
+          padding: const EdgeInsets.all(20.00),
+          decoration:  BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(20.0),
+            color: const Color.fromRGBO(161, 214, 107, 72),
+            boxShadow: const [BoxShadow(
+                spreadRadius: 1.0,
+                color: Colors.grey,
+                blurRadius: 10.0,
+              blurStyle: BlurStyle.outer
+            )]
+          ),
+         child: Form(
           key: _formKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children:  <Widget>[
+              const SizedBox(height: 20),
+              const Image( image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/bird-nerd-15f35.appspot.com/o/BirdNerd_mark.png?alt=media&token=35ef1407-031b-427e-bff5-dbd2e246be95"),
+                height: 120,
+                width: 110,
+              ),
               const SizedBox(height: 20.0),
               TextFormField(
                 validator: (value) => value!.isEmpty? 'Enter an email': null,
                 onChanged: (val) {
                   setState(() => email = val);
                 },
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   hintText: 'E-mail',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 2.0,
+                      color: Colors.lightGreen.shade800,
+                    ) ,
+                    borderRadius: BorderRadius.circular(20.00)
+                        
+                  ),
+                  filled: true,
+                  fillColor: Colors.white
                 ),
               ),
               const SizedBox(height: 20.0),
@@ -88,7 +127,18 @@ class _RegisterState extends State<Register> {
                   setState(() => password = val);
                 },
                 decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 2.0,
+                          color: Colors.lightGreen.shade800,
+                        ) ,
+                        borderRadius: BorderRadius.circular(20.00)
+
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
                     hintText: 'Password',
+
                     suffixIcon: IconButton(
                       icon: Icon(
                           _isObscure ? Icons.visibility_off : Icons.visibility),
@@ -120,9 +170,11 @@ class _RegisterState extends State<Register> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                    minimumSize: const Size(60, 60),
-                    elevation: 10),
+                    backgroundColor: Colors.lightGreen.shade800,
+                    minimumSize: const Size(150, 50),
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                ),
                 child:const Text('Register',
                   style: TextStyle(fontSize: 20),
                 ),
@@ -134,7 +186,8 @@ class _RegisterState extends State<Register> {
               )
             ],
           ),
-        ),
+        )
+          ,),
       ),
     );
   }

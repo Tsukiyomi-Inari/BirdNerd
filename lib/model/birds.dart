@@ -4,11 +4,14 @@
 /// version:  1
 /// Class for handling information related to birds.
 
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:birdnerd/model/bird_model.dart';
+
 
 class Birds with ChangeNotifier{
 
@@ -39,7 +42,20 @@ class Birds with ChangeNotifier{
        id: "5",
        birdCommon: "American Goldfinch",
        birdScientific: "Spinus tristis",
-       imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/244522141")];
+       imageUrl: "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/244522141"),
+  Bird(
+    id: "6",
+    birdCommon: "???",
+    birdScientific: "",
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/bird-nerd-15f35.appspot.com/o/unTaken-ListItem.png?alt=media&token=ac17037b-d840-419a-8663-991b7d1a9518",
+    isTaken: false
+
+  )
+
+ ];
+
+
+
 
  /* //Create New User List
   Future<void> userLifeList(String uid) async {

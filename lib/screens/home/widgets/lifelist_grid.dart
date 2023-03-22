@@ -29,9 +29,9 @@ class LifeListGrid extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 3 / 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        childAspectRatio: 1 / 1,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
       ),
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
         value: birds[i],
