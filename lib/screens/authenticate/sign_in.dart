@@ -38,6 +38,8 @@ class _SignInState extends State<SignIn> {
   // show the password or not
   bool _isObscure = true;
 
+
+
   @override
   Widget build(BuildContext context) {
     return loading ? const Loading() : Scaffold(
@@ -74,114 +76,118 @@ class _SignInState extends State<SignIn> {
     ),
     ),
     //padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-    child:Container(
-    alignment:  const Alignment(0.0, 0.0),
-    margin: const EdgeInsets.symmetric(vertical: 20.00, horizontal: 5.00),
-    padding: const EdgeInsets.all(20.00),
-    decoration:  BoxDecoration(
-    shape: BoxShape.rectangle,
-    borderRadius: BorderRadius.circular(20.0),
-    color: const Color.fromRGBO(161, 214, 107, 72),
-    boxShadow: const [BoxShadow(
-    spreadRadius: 1.0,
-    color: Colors.grey,
-    blurRadius: 10.0,
-    blurStyle: BlurStyle.outer
-    )]
-    ),
+    child:Card(
+      elevation: 10,
+      color: const Color.fromRGBO(161, 214, 107, 72),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Colors.lightGreen.shade800, width: 1),
+        borderRadius: BorderRadius.circular(15.0)
+      ),
+      margin: const EdgeInsets.all(20),
     child: Form(
     key: _formKey,
-    child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children:  <Widget>[
-    const SizedBox(height: 10),
-    const Image( image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/bird-nerd-15f35.appspot.com/o/BirdNerd_mark.png?alt=media&token=35ef1407-031b-427e-bff5-dbd2e246be95"),
-    height: 120,
-    width: 110,
-    ),
-              const SizedBox(height: 10.0),
-              TextFormField(
-                validator: (val) => val!.isEmpty? 'Enter an email': null,
-                onChanged: (val) {
-                  setState(() => email = val);
-                },
-                decoration:  InputDecoration(
-                  hintText: 'E-mail',
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 2.0,
-                          color: Colors.lightGreen.shade800,
-                        ) ,
-                        borderRadius: BorderRadius.circular(20.00)
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children:  <Widget>[
+      const SizedBox(height: 10),
+      const Image( image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/bird-nerd-15f35.appspot.com/o/BirdNerd_mark.png?alt=media&token=35ef1407-031b-427e-bff5-dbd2e246be95"),
+      height: 120,
+      width: 110,
+      ),
+                const SizedBox(height: 20.0),
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (val) => val!.isEmpty? 'Enter an email': null,
+                  onChanged: (val) {
+                    setState(() => email = val);
+                  },
+                  decoration:  InputDecoration(
+                    prefixIcon:  Icon( Icons.email, color: Colors.lightGreen.shade800,) ,
+                    hintText: 'E-mail',
+                      hintStyle: const TextStyle(fontFamily: "Oswald", fontSize: 16),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 2.0,
+                            color: Colors.lightGreen.shade800,
+                          ) ,
+                          borderRadius: BorderRadius.circular(8.00)
 
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
+                      ),
+                    errorStyle: const TextStyle(backgroundColor: Colors.white, fontWeight: FontWeight.w500),
+                      filled: true,
+                      fillColor: Colors.white,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 5.0),
-              TextFormField(
-                obscureText: _isObscure,
-                validator: (val) => val!.isEmpty? 'Enter a password 6+ chars long': null,
-                onChanged: (val) {
-                  setState(() => password = val);
-                },
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 2.0,
-                          color: Colors.lightGreen.shade800,
-                        ) ,
-                        borderRadius: BorderRadius.circular(20.00)
+                const SizedBox(height: 40.0),
+                TextFormField(
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: _isObscure,
+                  validator: (val) => val!.length < 6 ? 'Enter a password 6+ chars long': null,
+                  onChanged: (val) {
+                    setState(() => password = val);
+                  },
+                  decoration: InputDecoration(
+                      prefixIcon:  Icon( Icons.lock , color: Colors.lightGreen.shade800,) ,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 2.0,
+                            color: Colors.lightGreen.shade800,
+                          ) ,
+                          borderRadius: BorderRadius.circular(8.00)
 
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Password',
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                          _isObscure ? Icons.visibility_off : Icons.visibility),
-                      onPressed: () {
+                      ),
+                      errorStyle: const TextStyle(backgroundColor: Colors.white, fontWeight: FontWeight.w500),
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: 'Password',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                            _isObscure ? Icons.visibility_off : Icons.visibility),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },
+                      )
+                  ),
+                ),
+                const SizedBox(height: 40.0),
+                ElevatedButton(
+                  onPressed: ()async {
+                    if(_formKey.currentState!.validate()){
+                      /// Show loading state AFTER validation
+                      setState(() => loading = true);
+                      dynamic result = await _auth.signIn(email, password);
+                      if(result == null){
+                        /// Set loading state to false if an error occurs.
                         setState(() {
-                          _isObscure = !_isObscure;
+                          error = 'Error: Could not sign in with the credentials';
+                          loading = false;
                         });
-                      },
-                    )
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: ()async {
-                  if(_formKey.currentState!.validate()){
-                    /// Show loading state AFTER validation
-                    setState(() => loading = true);
-                    dynamic result = await _auth.signIn(email, password);
-                    if(result == null){
-                      /// Set loading state to false if an error occurs.
-                      setState(() {
-                        error = 'Error: Could not sign in with the credentials';
-                        loading = false;
-                      });
+                      }
                     }
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor:  Colors.lightGreen.shade800,
-                    minimumSize: const Size(150, 50),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    elevation: 10),
-                child:const Text('Sign In',
-                  style: TextStyle(fontSize: 20),
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor:  Colors.lightGreen.shade800,
+                      minimumSize: const Size(150, 50),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      elevation: 10),
+                  child:const Text('Sign In',
+                    style: TextStyle(fontSize: 20, fontFamily: "Teko", fontWeight: FontWeight.w500),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 5.0),
-              Text(
-                error,
-                style: const TextStyle(color: Colors.red, fontSize: 14.0),
-              )
-            ],
-          ),
+                const SizedBox(height: 10.0),
+                Text(
+                  error,
+                  style: const TextStyle(color: Colors.red, fontSize: 14.0, backgroundColor: Colors.white, fontWeight: FontWeight.w500),
+                )
+              ],
+            ),
+    ),
         ),
       ),
     ));

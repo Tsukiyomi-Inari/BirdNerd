@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
                   //debugShowCheckedModeBanner: false,
                   title: 'Bird Nerd',
                   theme: ThemeData(
-                   fontFamily:  'Oswald',
+                    fontFamily: "Teko",
                     buttonTheme: ButtonTheme.of(context).copyWith(
                       buttonColor: Colors.lightGreen.shade800,
                       textTheme: ButtonTextTheme.primary,

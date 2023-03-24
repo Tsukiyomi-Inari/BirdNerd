@@ -32,15 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final _bottomNavigationBarItems = [
     BottomNavigationBarItem(
-        icon: Icon(Icons.map, color: Colors.lightGreen.shade800 ),
+        icon: Icon(Icons.map, color: Colors.lightGreen.shade800 , weight: 700, size: 40.00,),
         label: 'Map'
     ),
      BottomNavigationBarItem(
-        icon: Icon(Icons.camera_alt_outlined, color: Colors.lightGreen.shade800),
+        icon: Icon(Icons.camera_alt_outlined, color: Colors.lightGreen.shade800, weight: 700,size: 40.00),
         label: 'Camera')
     ,
     BottomNavigationBarItem(
-    icon: Icon(Icons.list, color: Colors.lightGreen.shade800),
+    icon: Icon(Icons.list, color: Colors.lightGreen.shade800, weight: 700,size: 40.00),
     label: 'List'
     ),
   ];
@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.lightGreen.shade800,
         centerTitle: false,
         /// Checks for user to display id in app bar
-        title: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: 18),),
+        title: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: 19, fontFamily: "Oswald",fontWeight: FontWeight.w500 ),),
         // actions: [
         //   TextButton.icon(
         //     icon: const Icon(Icons.person),

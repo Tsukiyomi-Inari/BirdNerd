@@ -48,6 +48,7 @@ dependencies:
   carousel_slider: ^4.2.1
   flutter_dotenv: ^5.0.2
   flutter_native_splash: ^2.2.19
+  url_launcher: ^6.1.10
 
 
 dev_dependencies:
@@ -65,16 +66,16 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: false
-  image_path: "lib/assets/launcher_icon.png"
+  image_path: "lib/assets/BirdNerd_mark2.png"
   adaptive_icon_background: "#58901F"
   adaptive_icon_foreground: "lib/assets/Icon.png"
 
 flutter_native_splash:
   background_image: "lib/assets/background.png"
-  image:  "lib/assets/BirdNerd_mark.png"
+  image:  "lib/assets/BirdNerd_mark2.png"
 
   android_12:
-    image: "lib/assets/BirdNerd_mark.png"
+    image: "lib/assets/BirdNerd_mark2.png"
     background_image: "lib/assets/background.png"
 
 
@@ -97,7 +98,7 @@ assets:
   - lib/assets/unTaken-ListItem.png
   - lib/assets/mapStyle.txt
   - lib/assets/mapStyle.json
-  - lib/assets/BirdNerd_mark.png
+  - lib/assets/BirdNerd_mark2.png
   - lib/assets/splash_BG.png
   - lib/assets/background.png
   #   - images/a_dot_burr.jpeg
@@ -117,12 +118,22 @@ assets:
 fonts:
      - family: Teko
        fonts:
-         - asset: lib/assets/Tenko-Bold.ttf
-         - style: bold
-         - asset: lib/assets/Tenko-Medium.ttf
+         - asset: fonts/Teko-Regular.ttf
+         - asset: fonts/Teko-Bold.ttf
+           weight: 700
+         - asset: fonts/Teko-Medium.ttf
+           weight: 500
+         - asset: fonts/Teko-SemiBold.ttf
+           weight: 600
+
      - family: Oswald
        fonts:
-           - asset: lib/assets/Oswald-VariableFont_wght.ttf
+           - asset: fonts/Oswald-Regular.ttf
+           - asset: fonts/Oswald-Light.ttf
+             weight: 300
+           - asset: fonts/Oswald-Medium.ttf
+             weight: 500
+
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
