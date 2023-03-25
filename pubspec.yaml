@@ -87,6 +87,7 @@ flutter:
 assets:
   - lib/.env
   - lib/.env.production
+  - assets/bird_durham.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

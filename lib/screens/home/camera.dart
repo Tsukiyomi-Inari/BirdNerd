@@ -9,6 +9,7 @@ import 'package:birdnerd/screens/home/identification.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:birdnerd/shared/globals.dart' as globals;
+import 'package:birdnerd/services/database.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class _CameraScreenState extends State<CameraScreen> {
   int direction = 0;
 
   final controller = PageController(initialPage: 1);
+
 
 
 
@@ -80,6 +82,8 @@ class _CameraScreenState extends State<CameraScreen> {
             ),
             GestureDetector(
               onTap: () async{
+                print('********** Test whether this prints when camera is triggered **********');
+                //DatabaseService.showBirds();
                 try {
                   cameraController.takePicture().then((XFile? file) {
                     if(!mounted) return;

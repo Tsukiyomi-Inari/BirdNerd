@@ -7,23 +7,48 @@
 /// the region of Durham.
 
 import 'package:birdnerd/screens/home/widgets/lifelist_grid.dart';
+import 'package:birdnerd/services/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:birdnerd/model/bird.dart';
+import 'package:birdnerd/services/database.dart';
+// Accessing data from the stream requires provider
+import 'package:provider/provider.dart';
+import 'bird_tile.dart';
 
-class LifeList extends StatefulWidget {
-  const LifeList({Key? key}) : super(key: key);
 
-  @override
-  State<LifeList> createState() => _LifeListState();
-}
+class LifeList extends StatelessWidget {
+  const LifeList({super.key});
 
-class _LifeListState extends State<LifeList> {
-
-  final _taken = false;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: AlignmentDirectional.center,
-      child: LifeListGrid(_taken),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Bird List'),
+      ),
+      body: FutureBuilder<List<Bird>>(
+        future: DatabaseService.getBirds(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Bird>? birds = snapshot.data;
+
+            return ListView.builder(
+              itemCount: birds!.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(birds[index].commonName),
+                  subtitle: Text(birds[index].scientificName),
+                  leading: Image.network(birds[index].url),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return const Center(child: Text('Error retrieving data'));
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
     );
   }
 }
