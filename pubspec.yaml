@@ -94,7 +94,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
 assets:
   - lib/.env
-  - lib/.env.production
   - lib/assets/unTaken-ListItem.png
   - lib/assets/mapStyle.txt
   - lib/assets/mapStyle.json

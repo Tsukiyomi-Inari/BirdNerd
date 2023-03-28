@@ -11,9 +11,9 @@ import 'package:provider/provider.dart';
 import '../../../model/bird_model.dart';
 
 
-class BirdImage extends StatelessWidget {
+class BirdSquare extends StatelessWidget {
 
-  const BirdImage({super.key});
+  const BirdSquare({super.key});
 
 
 
@@ -28,7 +28,7 @@ class BirdImage extends StatelessWidget {
         footer: GridTileBar(
       backgroundColor: Colors.lightGreen.shade800.withOpacity(0.50),
     title: Text(
-      birdData.birdCommon,
+      birdData.commonName,
       textAlign: TextAlign.center,
       style:  const TextStyle(
         fontFamily: 'Tenko',
@@ -49,7 +49,7 @@ class BirdImage extends StatelessWidget {
       Opacity(
            opacity: 0.72,
            child: Image.network(
-            birdData.imageUrl,
+            birdData.url,
             fit: BoxFit.cover,
             //colorBlendMode:  birdData.isTaken ? null : const BlendMode.color(Colors.grey, BlendMode.color),
           ),

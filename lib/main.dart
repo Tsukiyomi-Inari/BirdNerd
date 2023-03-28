@@ -23,7 +23,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(const MyApp());
 }
 
@@ -36,9 +35,9 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MultiProvider(
         providers:[
-          ChangeNotifierProvider.value(
+       /*   ChangeNotifierProvider.value(
             value: Birds(),
-          ),
+          ),*/
           StreamProvider<UserModel?>.value(
               initialData: null,
               value: AuthService().onAuthStateChanged,

@@ -83,9 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = newIndex;
           });
         },
-        children: const [
-          MapScreen(),
-          CameraScreen(),
+        children:  [
+          const MapScreen(),
+          const CameraScreen(),
           LifeList(),
         ],
       ),

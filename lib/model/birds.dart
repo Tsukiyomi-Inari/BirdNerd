@@ -1,3 +1,4 @@
+/*
 /// birds.dart
 /// author:   Katherine Bellman, Russell Waring
 /// date:     2023-03-10
@@ -18,7 +19,8 @@ class Birds with ChangeNotifier{
 
 
  List<Bird> _userList = [
-   Bird(
+*/
+/*   Bird(
      id: "1",
      birdCommon: "Alder/Willow Flycatcher (Traill's Flycatcher)",
      birdScientific: "Empidonax alnorum/traillii",
@@ -50,14 +52,16 @@ class Birds with ChangeNotifier{
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/bird-nerd-15f35.appspot.com/o/unTaken-ListItem.png?alt=media&token=ac17037b-d840-419a-8663-991b7d1a9518",
     isTaken: false
 
-  )
+  )*//*
+
 
  ];
 
 
 
 
- /* //Create New User List
+ */
+/* //Create New User List
   Future<void> userLifeList(String uid) async {
     final url2 = Uri.parse(
         'http://bird-nerd-15f35-default-rtdb.firebaseio.com/Durham_Birds_CA.json');
@@ -94,7 +98,8 @@ class Birds with ChangeNotifier{
     catch (error) {
       rethrow;
     }
-  }*/
+  }*//*
+
 
 
   List<Bird> get entries{
@@ -159,6 +164,7 @@ class Birds with ChangeNotifier{
   }
 
 }
+*/
 
 
 

@@ -12,6 +12,16 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
+_launchURL() async {
+  var urlGithub =  Uri.parse("http://github.com/Tsukiyomi-Inari/BirdNerd");
+  if (await canLaunchUrl(urlGithub)) {
+    await launchUrl(urlGithub,
+                    mode: LaunchMode.externalApplication
+                    );
+  } else {
+    throw 'Could not launch $urlGithub';
+  }
+}
 
 
 about(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
@@ -110,10 +120,7 @@ about(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
                     ]),
                   ),
                   ElevatedButton(
-                    onPressed: () async {
-                      String urlGithub = 'github.com/Tsukiyomi-Inari/BirdNerd';
-                        await canLaunchUrl( Uri.https(urlGithub) ).then((value) => launchUrl(Uri.https(urlGithub) ));
-                    },
+                    onPressed: _launchURL,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.lightGreen.shade800,
                       minimumSize: const Size(134, 50),

@@ -12,8 +12,8 @@
 .svn/
 migrate_working_dir/
 .env.development
-lib/.env.production
-.env
+lib/.env
+lib/.env
 
 # IntelliJ related
 *.iml

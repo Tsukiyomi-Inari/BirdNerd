@@ -8,7 +8,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:birdnerd/.env' as classifier;
+//import 'package:birdnerd/.env' as classifier;
 
 class Classifier{
 
@@ -29,8 +29,8 @@ Future<http.Response> getPredictions(String imgPath) async{
 try {
     final response = await http.post(birdAPIurl,
       headers: {
-        "X-RapidAPI-Key": classifier.XRAPIDAPIKEY,
-        "X-RapidAPI-HOST": classifier.XRAPIDAPIHOST
+      //  "X-RapidAPI-Key": classifier.XRAPIDAPIKEY,
+      //  "X-RapidAPI-HOST": classifier.XRAPIDAPIHOST
       },
       body: {
       "image": imgPath

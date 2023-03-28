@@ -1,34 +1,26 @@
-/// bird_model.dart
-/// author:   Katherine Bellman, Russell Waring
-/// date:     2023-03-01
-/// version:  1
-/// Class for handling information related to birds.
+/// bird.dart
+/// 2023-03-21
+/// A template for outputting the data associated to a bird
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class Bird with ChangeNotifier{
+  final String commonName;
+  final int id;
+  final String scientificName;
+  final String url;
 
-  final String id;
-  final String birdCommon;
-  final String birdScientific;
-  final String imageUrl;
+  Bird({ required this.commonName, required this.id, required this.scientificName, required this.url});
 
-  bool isTaken;
-
-
-  Bird({
-   required this.id,
-   required this.birdCommon,
-   required this.birdScientific,
-   required this.imageUrl,
-   this.isTaken = false
-});
-
-  void toggleIsTakenStatus(){
-    isTaken = !isTaken;
-    notifyListeners();
+  factory Bird.fromJson(Map<String, dynamic> json) {
+    return Bird(
+      commonName: json['Common Name'] as String,
+      id: json['Id'] as int,
+      scientificName: json['Scientific Name'] as String,
+      url: json['Img Url'] as String,
+    );
   }
 
-
-
+  Map<String, dynamic> toJson() =>
+      {'Common Name': commonName, 'Id': id, 'Scientific Name': scientificName, 'Url': url};
 }
