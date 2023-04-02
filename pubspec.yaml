@@ -44,11 +44,20 @@ dependencies:
   firebase_database: ^10.0.15
   crop_your_image: ^0.7.4
   location: ^4.4.0
-  geolocator: ^9.0.2
   carousel_slider: ^4.2.1
   flutter_dotenv: ^5.0.2
   flutter_native_splash: ^2.2.19
   url_launcher: ^6.1.10
+  path_provider: ^2.0.13
+  image: ^4.0.15
+  custom_info_window: ^1.0.1
+  intl: ^0.17.0
+  async: ^2.9.0
+  path: ^1.8.2
+  image_to_byte: ^1.0.0
+
+dependency_overrides:
+  firebase_core_platform_interface: ^ 4.4.1
 
 
 dev_dependencies:
@@ -93,15 +102,16 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
 assets:
-  - lib/.env
-  - lib/assets/unTaken-ListItem.png
-  - lib/assets/mapStyle.txt
-  - lib/assets/mapStyle.json
-  - lib/assets/BirdNerd_mark2.png
-  - lib/assets/splash_BG.png
-  - lib/assets/background.png
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+      - lib/.env
+      - lib/assets/unTaken-ListItem.png
+      - lib/assets/mapStyle.txt
+      - lib/assets/mapStyle.json
+      - lib/assets/BirdNerd_mark2.png
+      - lib/assets/splash_BG.png
+      - lib/assets/background.png
+      - lib/assets/NotFound-Graphic.png
+      #   - images/a_dot_burr.jpeg
+      #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

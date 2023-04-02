@@ -6,23 +6,23 @@
 /// what species of bird has been captured in their photo.
 
 import 'dart:convert';
+import 'package:birdnerd/services/storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:birdnerd/shared/globals.dart' as globals;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:io';
 import 'package:birdnerd/screens/home/home.dart';
-import 'package:birdnerd/services/classifier.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:birdnerd/services/database.dart';
-import 'package:flutter/services.dart';
 import '../../model/bird_model.dart';
 import 'package:birdnerd/.env';
-
 import '../../shared/loading.dart';
+import 'package:image/image.dart' as img;
+import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
 
 
 class IdentificationScreen extends StatefulWidget {
@@ -45,6 +45,8 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
 
   late List<Bird> birds;
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DatabaseService _db = DatabaseService();
 
   final List<Bird> birdList = [];
 
@@ -57,8 +59,8 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
   //final List<String> birdPredictions = [];
 
   final CarouselController _carouselController = CarouselController();
-  late String currentIndex = "";
-  late var carouselIndex;
+  late int _currentIndex = 0;
+
   //get http => null;
 
   /// Override initialize state method to immediately call for image recognition
@@ -114,8 +116,6 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
 
     //print(nameList);
 
-    /// TODO: compare _scientificName with names in database, return common name and image
-
     //List<Bird> matchPredictions;
     // matchPredictions = await DatabaseService.getBirdsByScientificName(nameList);
 
@@ -134,14 +134,14 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
           commonName: 'Unable to identify',
           id: 209,
           scientificName: 'Unable to identify',
-          url: 'https://t3.ftcdn.net/jpg/03/53/78/32/360_F_353783241_kJr5np3yVR0hgzMsgON96DmqRkcMIoRs.jpg'
+          url: 'https://firebasestorage.googleapis.com/v0/b/bird-nerd-15f35.appspot.com/o/NotFound-Graphic.png?alt=media&token=4dc6b7c2-4dbd-4f3b-a42c-b6af08a5c10b'
       );
 
       birdList.add(birdy);
-      print('**********\n** TEST **\n**********');
-      print(birdList.length);
-
-      print('**********\n** TEST **\n**********');
+      // print('**********\n** TEST **\n**********');
+      // print(birdList.length);
+      //
+      // print('**********\n** TEST **\n**********');
 
 
     } catch (e) {
@@ -157,6 +157,44 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
 
   }
 
+
+  Future<String> cropCircle() async {
+    /// Capture image for map marker and crop as a circle
+    // 1) Load the image file into memory
+    img.Image cropImage = img.decodeImage(File(globals.filepath).readAsBytesSync())!;
+    // 2) Calculate the diameter of the circle as a percentage of the smaller dimension
+    int diameter = (cropImage.width < cropImage.height ? cropImage.width : cropImage.height);
+    // 3) Calculate the coordinates of the top-left corner of the crop region to center the circle in the image
+    int x = (cropImage.width - diameter) ~/ 2;
+    int y = (cropImage.height - diameter) ~/ 2;
+    // 4) Crop the circular region from the input image
+    img.Image croppedImage = img.copyCrop(cropImage, x: x, y: y, width: diameter, height: diameter, radius: diameter/2);
+    var rgba = croppedImage.convert(numChannels: 4); // make sure the image has an alpha channel
+    croppedImage = img.copyCropCircle(rgba);
+    // 5) Create temporary file path
+    final tempDir = await getTemporaryDirectory(); // get temporary directory
+    final tempFile = File('${tempDir.path}/circular_image.png'); // create temporary file
+    tempFile.writeAsBytesSync(img.encodePng(croppedImage)); // write image bytes to file
+    // 6) Upload the image to storage as bytes and get the url
+    String cropImageUrl = await StorageService.uploadImageOnly(tempFile.path.toString());
+    // 7) Delete the temporary file
+    tempFile.deleteSync();
+    return cropImageUrl;
+  }
+
+  Future<void> generateMapMarker() async {
+    /// Get user id
+    String? uid = _auth.currentUser?.uid.toString();
+    /// Get circle crop image for marker
+    String markerIcon = await cropCircle();
+    /// Capture Date for timestamp on marker
+    DateTime date = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+    /// Retrieve bird name
+    DatabaseService.updateUserMarkers(uid!, birdList[_currentIndex].commonName, formattedDate, globals.latitude!, globals.longitude!, markerIcon!);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     //final birdClassifier = Provider.of<Classifier>(context);
@@ -169,31 +207,6 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
           'Confirm bird',
           style: TextStyle(fontSize: 18, color: Colors.white),
         ),
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: const Icon(
-        //       Icons.settings,
-        //       color: Colors.white,
-        //     ),
-        //     onPressed: () => showDialog<String>(
-        //       context: context,
-        //       builder: (BuildContext context) => AlertDialog(
-        //         title: const Text('AlertDialog Title'),
-        //         content: const Text("Reset"),
-        //         actions: <Widget>[
-        //           TextButton(
-        //             onPressed: () => Navigator.pop(context, 'Cancel'),
-        //             child: const Text('Cancel'),
-        //           ),
-        //           TextButton(
-        //             onPressed: () => Navigator.pop(context, 'OK'),
-        //             child: const Text('OK'),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //   )
-        // ],
       ),
 
       /// The image is stored as a file on the device. Use the `Image.file`
@@ -252,23 +265,62 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                     CarouselSlider.builder(
                         itemCount: birdList.length,
                         carouselController: _carouselController,
-                        itemBuilder: (ctx, index, realIdx) {
-                          carouselIndex = realIdx;
-                          currentIndex = " Carousel index:${[index].toString()}"
-                              " Id:${birdList[index].id}"
-                              " Common Name:${birdList[index].commonName}"
-                              " Scientific Name:${birdList[index].scientificName}";
-                          print(currentIndex);
+                        itemBuilder: (ctx, index, rtx) {
+                          print(_currentIndex);
+                          print(birdList[_currentIndex].commonName);
                           return Center(
                             child:
-                            //_isLoading ? const CircularProgressIndicator() : Text (nameList[index]),
-                            _isLoading ? const CircularProgressIndicator() : Image.network(birdList[index].url),
+                            _isLoading
+                                ? const CircularProgressIndicator()
+                                : Stack(
+                                children: [
+                                  Image.network(birdList[index].url),
+                                  Positioned(
+                                      bottom: 0,
+                                      left: 0,
+                                      right: 0,
+                                      child:
+                                      // Text(
+                                      //   birdList[index].commonName,
+                                      //   textAlign: TextAlign.center,
+                                      //   style: TextStyle(
+                                      //     color: Colors.white,
+                                      //     fontWeight: FontWeight.bold,
+                                      //     fontSize: 22,
+                                      //     backgroundColor: Colors.black.withOpacity(0.5),
+                                      //   ),
+                                      // ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.5),
+                                          borderRadius: BorderRadius.circular(16),
+                                        ),
+                                        child: Text(
+                                          birdList[index].commonName,
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      )
+                                  ),
+                                ]
+                            ),
                           );
                         },
                         options: CarouselOptions(
+                          onPageChanged: (index, reason){
+                            setState(() {
+                              _currentIndex = index;
+                            });
+                          },
                           enableInfiniteScroll: birdList.length > 1,
                           aspectRatio: 1 / 1,
                           enlargeCenterPage: true,
+                          initialPage: 0,
                           //height: 200,
                           // viewportFraction: 0.5,
                           //enlargeFactor: 1.0
@@ -276,11 +328,37 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
               ),
               const SizedBox(height: 15.0),
               TextButton(
-                onPressed: () {
-                 setState(() {
+                onPressed: () async {
+                  final user = _auth.currentUser?.uid;
+                  final Reference storageRef = FirebaseStorage.instance.ref().child("userImages");
+                  final file = File(imagePath);
+                  late final String birdAddURL;
 
-                   print(currentIndex);
-                 });
+
+                  final TaskSnapshot snapshot = await StorageService().uploadImage(storageRef, file, birdList[_currentIndex].id.toString(), user.toString(), globals.longitude.toString() , globals.latitude.toString());
+
+                      birdAddURL = await snapshot.ref.getDownloadURL();
+
+                generateMapMarker();
+                _db.addBirdToLifeList(
+                     Bird(     commonName: birdList[_currentIndex].commonName,
+                               id: birdList[_currentIndex].id,
+                               scientificName: birdList[_currentIndex].scientificName,
+                               url: birdAddURL
+                     ),
+                             user.toString()
+                         ).then((value) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Bird added Successfully')),
+                          );
+
+                          setState(() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const HomeScreen()),
+                            );
+                          });
+                        });
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreen.shade800,
@@ -305,22 +383,8 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
       ),
     );
   }
-}
 
-class SquareCustomClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    double width = size.width;
-    double height = size.height;
-    Path path = Path();
-    path.lineTo(width, height);
-    path.lineTo(height, width);
-    path.lineTo(height, width);
-    path.lineTo(height, width);
-    path.close();
-    return path;
-  }
 
-  @override
-  bool shouldReclip(CustomClipper oldClipper) => false;
+
+
 }

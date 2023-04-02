@@ -5,18 +5,81 @@
 /// In birding, a “life list” is a list of all the birds a person has seen or
 /// heard. The lifelist screen represents birds discovered by the user based in
 /// the region of Durham.
-
 import 'package:birdnerd/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:birdnerd/model/bird_model.dart';
 // Accessing data from the stream requires provider
 import 'package:provider/provider.dart';
 import '../../services/auth.dart';
+import 'package:birdnerd/screens/home/widgets/bird_detail.dart' as BirdDetail;
+import 'package:birdnerd/shared/loading.dart';
 
-class LifeList extends StatelessWidget {
-  LifeList({super.key});
+class LifeList extends StatefulWidget {
+  const LifeList({Key? key}) : super(key : key);
 
+  @override
+  State<LifeList> createState() => _LifeListState();
+}
+
+class _LifeListState extends State<LifeList> {
   final AuthService _auth = AuthService();
+  final _authInstance = FirebaseAuth.instance;
+  late String? user = _authInstance.currentUser?.uid.toString();
+  final defaultImage =
+      "https://firebasestorage.googleapis.com/v0/b/bird-nerd-15f35.appspot.com/o/NotFound-Graphic.png?alt=media&token=4dc6b7c2-4dbd-4f3b-a42c-b6af08a5c10b";
+// Future<List<Bird>> _getUserList() async{
+//     List<Bird> finalList = [];
+//     var masterSnapshot = await DatabaseService.getBirds();
+//     var userSnapshot = await DatabaseService.getUserLifeList(user);
+//     if(userSnapshot.isNotEmpty) {
+//       try {
+//               masterSnapshot.forEach((element) {
+//         if (!userSnapshot.contains(element.id)) {
+//         finalList.add(Bird(
+//               commonName: "???",
+//               id: element.id,
+//               scientificName: "???",
+//               url: defaultImage.toString()
+//           )
+//           );
+//         } else {
+//           finalList.add(Bird(
+//             commonName: element.commonName,
+//             id: element.id,
+//             scientificName: element.scientificName,
+//             url: element.url,
+//           )
+//           );
+//         }
+//       });
+//     } on Exception catch (e) {
+//       return masterSnapshot;
+//     }
+//     // finally{
+//     //   return finalList;
+//     // }
+//     loading = false;
+//     hasUserList = true;
+//     return finalList;
+//   }
+//   else{
+//     return masterSnapshot;
+//   }
+//
+//   }
+
+  /// Map icon button to navigate to user's location at time of entry photo taken
+  final IconButton mapIconButton = IconButton(
+    onPressed: () {
+      /// Launch map page where marker is
+    },
+    icon: Icon(
+      Icons.location_on_sharp,
+      color: Colors.lightGreen.shade800,
+      size: 50,
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +107,7 @@ class LifeList extends StatelessWidget {
                       child: GridTile(
                         footer: GridTileBar(
                           backgroundColor:
-                          Colors.lightGreen.shade800.withOpacity(0.50),
+                              Colors.lightGreen.shade800.withOpacity(0.50),
                           title: Text(
                             birds[i].commonName,
                             textAlign: TextAlign.center,
@@ -56,12 +119,9 @@ class LifeList extends StatelessWidget {
                           ),
                         ),
                         child: GestureDetector(
-                          onTap: () {
-
-/*           Navigator.of(context).pushNamed(
-            ProductDetailScreen.routeName,
-            arguments: product.id,
-          );*/
+                          onTap: () async {
+                            BirdDetail.birdDetail(context, _authInstance, _auth,
+                                mounted, birds[i], mapIconButton);
                           },
                           child: Opacity(
                             opacity: 0.72,
@@ -72,8 +132,7 @@ class LifeList extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ))
-              ),
+                      ))),
             );
           } else if (snapshot.hasError) {
             return const Center(child: Text('Error retrieving data'));

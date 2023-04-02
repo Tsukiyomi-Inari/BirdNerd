@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
+import 'model/bird_model.dart';
 import 'model/user_model.dart';
 
 
@@ -35,15 +36,15 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MultiProvider(
         providers:[
-       /*   ChangeNotifierProvider.value(
-            value: Birds(),
-          ),*/
+         // ChangeNotifierProvider.value(
+         //    value: Bird(),
+         //  ),
           StreamProvider<UserModel?>.value(
               initialData: null,
               value: AuthService().onAuthStateChanged,
               builder: (context, snapshot) {
                 return  MaterialApp(
-                  //debugShowCheckedModeBanner: false,
+                  debugShowCheckedModeBanner: false,
                   title: 'Bird Nerd',
                   theme: ThemeData(
                     fontFamily: "Teko",

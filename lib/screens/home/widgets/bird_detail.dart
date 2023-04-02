@@ -10,7 +10,7 @@ import 'package:birdnerd/services/auth.dart';
 
 import '../../../model/bird_model.dart';
 
-settings(context, FirebaseAuth authInstance, AuthService auth, mounted, Bird birdy) {
+birdDetail(context, FirebaseAuth authInstance, AuthService auth, mounted, Bird birdy, IconButton buttonCode) {
   showDialog(
       context: context,
       builder: (context) {
@@ -51,20 +51,28 @@ settings(context, FirebaseAuth authInstance, AuthService auth, mounted, Bird bir
                       child:
                   Container(
                       alignment: Alignment.center,
-                      padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 40.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                                              SizedBox(
-                          height: 63,
-                          width: 58,
-                    child:  Image.network(birdy.url) ,
+                            ClipRRect(
+                    clipBehavior: Clip.antiAlias,
+        child: SizedBox(
+        height: 200,
+        width: 200,
+        child: FittedBox(
+         child: Image.network(birdy.url,
+                           // scale: 0.5,
+                    ) ,
                     ),
+        ),
+                    ),
+
                     Text(
                       birdy.commonName.toString() ,
-                      style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
+                      style:  TextStyle(
+                          fontSize: 22,
+                          color: Colors.lightGreen.shade800,
                           fontWeight: FontWeight.w900,
                           fontFamily: "Oswald"
                       ),
@@ -72,32 +80,31 @@ settings(context, FirebaseAuth authInstance, AuthService auth, mounted, Bird bir
                   Text(
                     birdy.scientificName.toString() ,
                     style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         color: Colors.black,
                         fontWeight: FontWeight.w500,
                         fontFamily: "Oswald"
                     ),
                   ),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
                     children:[ Container(
                       // width: double.infinity,
                       // height: 60,
-                      padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 20.0),
-                      child: IconButton(
-                        onPressed: () {
-                          /// Launch map page where marker is
-
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.lightGreen.shade800,
-                          minimumSize: const Size(134, 50),
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        icon: Icon(Icons.location_on_sharp, color: Colors.lightGreen.shade800,),
-                      ),
+                      padding: const EdgeInsets.only(right: 8.0),
+                        child://  IconButton(
+                      //   onPressed: () {
+                      //     /// Launch map page where marker is
+                      //
+                      //   },
+                      //   icon: Icon(Icons.location_on_sharp,
+                      //     color: Colors.lightGreen.shade800,
+                      //   size: 50,),
+                      // ),
+                      buttonCode
                     ),
-
                   Container(
                     //width: double.infinity,
                     // height: 60,
@@ -106,15 +113,9 @@ settings(context, FirebaseAuth authInstance, AuthService auth, mounted, Bird bir
                       onPressed: () async {
                        /// download photo
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightGreen.shade800,
-                        minimumSize: const Size(134, 50),
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      ),
                       icon: Icon(Icons.download,
                         color: Colors.lightGreen.shade800,
-                        size: 20,
+                        size: 50,
                       ) ,
                     ),
                   ),

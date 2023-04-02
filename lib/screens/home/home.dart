@@ -7,6 +7,7 @@
 /// AppBar and navigation bar throughout the user experience.
 
 
+import 'package:birdnerd/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:birdnerd/screens/home/camera.dart';
 import 'package:birdnerd/screens/home/lifelist.dart';
@@ -14,6 +15,9 @@ import 'package:birdnerd/screens/home/map.dart';
 import 'package:birdnerd/screens/home/widgets/settings.dart' as Settings;
 import 'package:birdnerd/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../model/bird_model.dart';
+import '../../shared/loading.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -29,6 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final AuthService _auth =  AuthService();
   final _authInstance = FirebaseAuth.instance;
+  late String?  user =  _authInstance.currentUser?.uid;
+
+
 
   final _bottomNavigationBarItems = [
     BottomNavigationBarItem(
@@ -44,6 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
     label: 'List'
     ),
   ];
+
+  @override
+  void initState(){
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
