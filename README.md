@@ -1,16 +1,25 @@
-# birdnerd
+# BirdNerd
 
 Mobile application for the course CAPR6203 by Katherine Bellman and Russell Waring
 
-## Getting Started
+<img src="/lib/assets/BirdNerd_mark.png"   align="center">
+###  Development Concept
+Gamified bird watching, with the goal to capture images of all 208 Durham Region, Ontario species. Think pokemon but with your phone's camera and scoped to only birds.
+## Built With
 
-This project is a starting point for a Flutter application.
+- Flutter
+- Firebase Firestore
+- Firebase Cloud Storage
+- Firebase Authentication
+- Bird Identification Image Procesing API
+- Google Maps
 
-A few resources to get you started if this is your first Flutter project:
+## Future Updates
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Photo croping
+- Image downloads
+- Search life list items
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🤝 Support
+
+Give a ⭐️ if you like this project!

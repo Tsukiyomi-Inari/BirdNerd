@@ -4,7 +4,6 @@
 /// version:  3
 /// The map screen. Will display meaningful map markers based on discovered
 /// birds.
-
 import 'package:birdnerd/services/database.dart';
 import 'package:birdnerd/shared/globals.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,43 +18,38 @@ import 'package:birdnerd/model/marker.dart';
 import 'package:image/image.dart' as IMG;
 import 'package:flutter/services.dart';
 import 'package:custom_info_window/custom_info_window.dart';
-
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
-
   @override
   State<MapScreen> createState() => _MapScreenState();
 }
-
 class _MapScreenState extends State<MapScreen> {
-
   final AuthService _auth = AuthService();
   final _authInstance = FirebaseAuth.instance;
-
   /// State level variables
   late GoogleMapController _mapController;
   final Map<String, Marker> _markers = {};
-
   // Used for loading state before result is identified
   late bool _isLoading = true;
-
+  late bool _markersLoaded = false;
   /// Override initialize state method to immediately call for markers
   @override
   void initState() {
     super.initState();
     _getUserMarkers();
+    setState(() {
+      _isLoading = false;
+    });
   }
-
   Future<void> _getUserMarkers() async {
     String? uid = _authInstance.currentUser?.uid.toString();
-    List<MyMarker> myMarkers = await DatabaseService.getUserMarkers(uid!);
-
     print('**********\n** TEST **\n**********');
     print(uid);
     print('**********\n** TEST **\n**********');
-
+    List<MyMarker> myMarkers = await DatabaseService.getUserMarkers(uid!);
     /// Convert image to being useable?
     for (int i = 0; i < myMarkers.length; i++) {
+      print(myMarkers[i].imgUrl);
       LatLng location = LatLng(myMarkers[i].latitude, myMarkers[i].longitude);
       var bytes = (await NetworkAssetBundle(Uri.parse(myMarkers[i].imgUrl))
           .load(myMarkers[i].imgUrl))
@@ -77,10 +71,9 @@ class _MapScreenState extends State<MapScreen> {
       _markers[id] = marker;
     }
     setState(() {
-      _isLoading = false;
+      _markersLoaded = true;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +100,7 @@ class _MapScreenState extends State<MapScreen> {
                     _mapController = controller;
                   });
                 },
-                markers: _markers.values.toSet(),
+                markers: _markersLoaded ? _markers.values.toSet() : <Marker>{},
               );
             } else {
               return const Center(child: CircularProgressIndicator());

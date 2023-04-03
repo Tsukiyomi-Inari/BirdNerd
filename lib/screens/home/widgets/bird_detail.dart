@@ -39,9 +39,9 @@ birdDetail( context, FirebaseAuth authInstance, AuthService auth, mounted, IconB
           contentPadding: const EdgeInsets.only(
             top: 10.0,
           ),
-//title: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: ),)
-//style: TextStyle(fontSize: 24.0),
-//),
+            //title: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: ),)
+            //style: TextStyle(fontSize: 24.0),
+            //),
           content: SizedBox(
             height: 420,
             width: 320,
@@ -53,14 +53,14 @@ birdDetail( context, FirebaseAuth authInstance, AuthService auth, mounted, IconB
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Container(
-                      alignment: Alignment.topRight,
-                      child: IconButton(onPressed: (){
-                        Navigator.pop(context);
-                      }, icon: Icon(
-                        Icons.close,
-                        color: Colors.lightGreen.shade800 ,
-                        size: 30.00,
-                      ) )), Center(
+                alignment: Alignment.topRight,
+                child: IconButton(onPressed: (){
+                  Navigator.pop(context);
+                }, icon: Icon(
+                  Icons.close,
+                  color: Colors.lightGreen.shade800 ,
+                  size: 30.00,
+                ) )), Center(
                       child:
                       Container(
                           alignment: Alignment.center,
@@ -75,7 +75,7 @@ birdDetail( context, FirebaseAuth authInstance, AuthService auth, mounted, IconB
                                     width: 200,
                                     child: FittedBox(
                                       child: Image.network( condition ? birdy!.url : birdy2!.url ,
-// scale: 0.5,
+                                        // scale: 0.5,
                                       ) ,
                                     ),
                                   ),
@@ -104,44 +104,44 @@ birdDetail( context, FirebaseAuth authInstance, AuthService auth, mounted, IconB
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children:[ Container(
-// width: double.infinity,
-// height: 60,
+                                      // width: double.infinity,
+                                      // height: 60,
                                         padding: const EdgeInsets.only(right: 8.0),
                                         child:// IconButton(
-// onPressed: () {
-// /// Launch map page where marker is
-//
-// },
-// icon: Icon(Icons.location_on_sharp,
-// color: Colors.lightGreen.shade800,
-// size: 50,),
-// ),
+                                        // onPressed: () {
+                                        // /// Launch map page where marker is
+                                        //
+                                        // },
+                                        // icon: Icon(Icons.location_on_sharp,
+                                        // color: Colors.lightGreen.shade800,
+                                        // size: 50,),
+                                        // ),
                                         condition2 ? buttonCode : const Text('')
                                     ),
-// Container(
-// //width: double.infinity,
-// // height: 60,
-// padding: const EdgeInsets.all(8.0),
-// child: condition? IconButton(
-// onPressed: () async {
-// StorageService().downloadBirdImage(birdy!);
-// /// download photo
-//
-// },
-// icon: Icon(Icons.download,
-// color: Colors.lightGreen.shade800,
-// size: 50,
-// ) ,
-// ) :
-// IconButton(
-// onPressed: () {},
-// disabledColor: Colors.white12,
-// icon: const Icon(Icons.download,
-// size: 50,
-// ) ,
-// )
-// ,
-// ),
+                                    // Container(
+                                    // //width: double.infinity,
+                                    // // height: 60,
+                                    // padding: const EdgeInsets.all(8.0),
+                                    // child: condition? IconButton(
+                                    // onPressed: () async {
+                                    // StorageService().downloadBirdImage(birdy!);
+                                    // /// download photo
+                                    //
+                                    // },
+                                    // icon: Icon(Icons.download,
+                                    // color: Colors.lightGreen.shade800,
+                                    // size: 50,
+                                    // ) ,
+                                    // ) :
+                                    // IconButton(
+                                    // onPressed: () {},
+                                    // disabledColor: Colors.white12,
+                                    // icon: const Icon(Icons.download,
+                                    // size: 50,
+                                    // ) ,
+                                    // )
+                                    // ,
+                                    // ),
                                     ]),
                               ]) )
                   )],
