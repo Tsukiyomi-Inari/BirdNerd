@@ -43,7 +43,7 @@ class Birds with ChangeNotifier{
 
  // Cardinal 512919771
 
- /* //Create New User List
+  //Create New User List
   Future<void> userLifeList(String uid) async {
     final url2 = Uri.parse(
         'http://bird-nerd-15f35-default-rtdb.firebaseio.com/Durham_Birds_CA.json');
@@ -80,7 +80,7 @@ class Birds with ChangeNotifier{
     catch (error) {
       rethrow;
     }
-  }*/
+  }
 
 
   List<Bird> get entries{

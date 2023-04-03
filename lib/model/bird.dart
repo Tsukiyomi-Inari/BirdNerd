@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 /// bird.dart
 /// 2023-03-21
 /// A template for outputting the data associated to a bird
 
-class Bird {
+import 'package:flutter/cupertino.dart';
+
+class Bird with ChangeNotifier{
   final String commonName;
   final int id;
   final String scientificName;

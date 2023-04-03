@@ -14,6 +14,7 @@ import 'package:birdnerd/screens/home/map.dart';
 import 'package:birdnerd/screens/home/widgets/settings.dart' as Settings;
 import 'package:birdnerd/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:birdnerd/shared/globals.dart' as globals;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -83,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = newIndex;
           });
         },
-        children: const [
+        children: [
           LifeList(),
           CameraScreen(),
           MapScreen(),

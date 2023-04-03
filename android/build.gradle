@@ -16,6 +16,12 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        //** Bug fix for application crashing using current location
+        configurations.all {
+            resolutionStrategy {
+                force "com.google.android.gms:play-services-location:21.0.1"
+            }
+        }
     }
 }
 

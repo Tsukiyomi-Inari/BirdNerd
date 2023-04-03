@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:birdnerd/shared/globals.dart' as globals;
 import 'package:birdnerd/services/database.dart';
+import 'package:location/location.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
@@ -25,6 +26,11 @@ class _CameraScreenState extends State<CameraScreen> {
   int direction = 0;
 
   final controller = PageController(initialPage: 1);
+
+  Location location = Location();
+
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
 
 
 
@@ -91,6 +97,13 @@ class _CameraScreenState extends State<CameraScreen> {
                         //print("Picture saved to ${file.path}");
                         /// Stores the filepath of captured image into globals
                         globals.filepath = file.path;
+                        /// Get the user's location
+                        location.getLocation().then((pos) {
+                          globals.latitude = pos.latitude;
+                          globals.longitude = pos.longitude;
+                          //print(globals.latitude);
+                          //print(globals.longitude);
+                        });
                         //Navigator.pushNamed(context, '/identification');
                         Navigator.push(
                           context,

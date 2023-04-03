@@ -15,9 +15,15 @@ String filepath = '';
 double? latitude;
 double? longitude;
 
-LatLng location = LatLng(43.941990, -78.894478);
+int carouselIndex = 0;
+
+// User id
+// String uid = '';
 
 // // Marker test
 // Map<String, Marker> markers = {
 //   'test': location,
 // };
+
+// Identification screen / marker variables
+String customMarkerPath = '';

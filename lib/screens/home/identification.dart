@@ -6,6 +6,7 @@
 /// what species of bird has been captured in their photo.
 
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:birdnerd/shared/globals.dart' as globals;
 import 'package:carousel_slider/carousel_slider.dart';
@@ -14,10 +15,21 @@ import 'package:birdnerd/screens/home/home.dart';
 import 'package:birdnerd/services/classifier.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'package:birdnerd/services/database.dart';
 import 'package:flutter/services.dart';
+import 'package:birdnerd/model/bird.dart';
+import 'package:birdnerd/model/marker.dart';
+import 'dart:ui' as ui;
+import 'package:image/image.dart' as img;
+import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:birdnerd/screens/home/widgets/confirm.dart' as Confirm;
+
+import '../../services/auth.dart';
 
 class IdentificationScreen extends StatefulWidget {
   const IdentificationScreen({super.key});
@@ -37,11 +49,14 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
   // Used for loading state before result is identified
   late bool _isLoading = true;
 
-  final List<String> imgList = [
-    'https://cdn.download.ams.birds.cornell.edu/api/v1/asset/481076421',
-    'https://cdn.download.ams.birds.cornell.edu/api/v1/asset/341874291',
-    'https://cdn.download.ams.birds.cornell.edu/api/v1/asset/475958481',
-  ];
+  late List<Bird> birds;
+
+  // Used for sending user id to database for markers
+  final AuthService _auth =  AuthService();
+  final _authInstance = FirebaseAuth.instance;
+
+
+  final List<Bird> birdList = [];
 
   late List<String> nameList =[
     '',
@@ -52,6 +67,9 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
   //final List<String> birdPredictions = [];
 
   final CarouselController _carouselController = CarouselController();
+
+  // Variable for carousel index
+  int _currentIndex = 0;
 
   //get http => null;
 
@@ -67,6 +85,7 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
     await getScientificName(imageFile);
     setState(() {
       _isLoading = false;
+      //birds = value;
     });
   }
 
@@ -93,27 +112,42 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
     Map<String, dynamic> birdPrediction1 = decodedData[0];
     Map<String, dynamic> birdPrediction2 = decodedData[1];
     Map<String, dynamic> birdPrediction3 = decodedData[2];
-    //print('Wow, it\s a ${birdPrediction['scientificName']}!');
-    // print(decodedData[0].toString());
     _scientificName1 = birdPrediction1['scientificName'];
     _scientificName2 = birdPrediction2['scientificName'];
     _scientificName3 = birdPrediction3['scientificName'];
-    print(_scientificName1);
 
     nameList[0] = _scientificName1;
     nameList[1] = _scientificName2;
     nameList[2] = _scientificName3;
 
+
     /// TODO: compare _scientificName with names in database, return common name and image
 
+    //List<Bird> matchPredictions;
+    // matchPredictions = await DatabaseService.getBirdsByScientificName(nameList);
 
+    try {
+      final matchPredictions = await DatabaseService.getBirdsByScientificName(nameList);
 
+      for(var i = 0; i< matchPredictions.length; i++) {
+        birdList.add(matchPredictions[i]);
+      }
+
+      Bird birdy = Bird(
+          commonName: 'Unable to identify',
+          id: 0,
+          scientificName: 'Unable to identify',
+          url: 'https://t3.ftcdn.net/jpg/03/53/78/32/360_F_353783241_kJr5np3yVR0hgzMsgON96DmqRkcMIoRs.jpg'
+      );
+      birdList.add(birdy);
+    } catch (e) {
+      print(e.toString()); // print any errors or exceptions
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     //final birdClassifier = Provider.of<Classifier>(context);
-    var currentIndex;
     return Scaffold(
       appBar: AppBar(
         //backgroundColor: Colors.white,
@@ -161,8 +195,6 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
             )),
         child: Center(
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            //crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
                 child: Container(
@@ -171,10 +203,8 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                     minHeight: 220,
                   ),
                   margin: const EdgeInsets.only(top: 10),
-                  //height: double.infinity,
                   color: const Color.fromRGBO(161, 214, 107, 50.00),
                   padding: const EdgeInsets.all(15.0),
-                  //child: Image.file(File(imagePath)),
                   child: ClipRect(
                     child: Image.file(File(imagePath)),
                     ),
@@ -186,36 +216,59 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                     constraints: const BoxConstraints(
                       maxHeight: 220,
                     ),
-                    //padding: const EdgeInsets.all(15.0),
-                    //margin: const EdgeInsets.all(10),
                     width: double.infinity,
                     height: 220,
                     color: const Color.fromRGBO(161, 214, 107, 50.00),
-                    child: /*TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'AI Suggested Image',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                  ),*/
-                    //TODO: Switch back to imgList once logic is working for returning images
+                    child:
                     CarouselSlider.builder(
-                        itemCount: nameList.length,
+                        itemCount: birdList.length,
                         carouselController: _carouselController,
                         itemBuilder: (ctx, index, realIdx) {
-                          currentIndex = index.toString();
                           return Center(
                               child:
-                              _isLoading ? const CircularProgressIndicator() : Text (nameList[index]),
+                              //_isLoading ? const CircularProgressIndicator() : Text (nameList[index]),
+                              //_isLoading ? const CircularProgressIndicator() : Image.network(birdList[index].url),
+                              _isLoading
+                                  ? const CircularProgressIndicator()
+                                  : Stack(
+                                children: [
+                                  Image.network(birdList[index].url),
+                                  Positioned(
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    child:
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: Colors.black.withOpacity(0.5),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: Text(
+                                        birdList[index].commonName,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ]
+                              ),
                           );
                         },
                         options: CarouselOptions(
+                          enableInfiniteScroll: birdList.length > 1,
                           aspectRatio: 1 / 1,
+                          //initialPage: 0,
                           enlargeCenterPage: true,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _currentIndex = index;
+                            });
+                          }
                           //height: 200,
                           // viewportFraction: 0.5,
                           //enlargeFactor: 1.0
@@ -224,8 +277,8 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
               const SizedBox(height: 15.0),
               TextButton(
                 onPressed: () async {
-                  // prediction.getPredictions(
-                  //     'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Eopsaltria_australis_-_Mogo_Campground.jpg/220px-Eopsaltria_australis_-_Mogo_Campground.jpg');
+                  //await generateMapMarker();
+                  Confirm.show(context, birdList[_currentIndex], _authInstance);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreen.shade800,
@@ -250,22 +303,4 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
       ),
     );
   }
-}
-
-class SquareCustomClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    double width = size.width;
-    double height = size.height;
-    Path path = Path();
-    path.lineTo(width, height);
-    path.lineTo(height, width);
-    path.lineTo(height, width);
-    path.lineTo(height, width);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper oldClipper) => false;
 }
