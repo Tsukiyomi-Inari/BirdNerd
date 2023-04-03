@@ -6,6 +6,8 @@
 /// birds.
 
 import 'package:birdnerd/services/database.dart';
+import 'package:birdnerd/shared/globals.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +49,10 @@ class _MapScreenState extends State<MapScreen> {
   Future<void> _getUserMarkers() async {
     String? uid = _authInstance.currentUser?.uid.toString();
     List<MyMarker> myMarkers = await DatabaseService.getUserMarkers(uid!);
+
+    print('**********\n** TEST **\n**********');
+    print(uid);
+    print('**********\n** TEST **\n**********');
 
     /// Convert image to being useable?
     for (int i = 0; i < myMarkers.length; i++) {

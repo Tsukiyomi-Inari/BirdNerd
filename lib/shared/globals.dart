@@ -6,7 +6,9 @@
 /// the application.
 
 library globals;
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:path/path.dart';
 
 
 // Camera variables
@@ -20,6 +22,59 @@ LatLng location = const LatLng(43.941990, -78.894478);
 // Map<String, Marker> markers = {
 //   'test': location,
 // };
+
+
+
+ AlertDialog  dialogFancy =  AlertDialog(
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(
+          20.0,
+        ),
+      ),
+    ),
+    contentPadding:  const EdgeInsets.only(
+      top: 10.0,
+    ),
+    //title: Text(_authInstance.currentUser?.email ?? 'Anonymous' , style: const TextStyle(fontSize: ),)
+    //style: TextStyle(fontSize: 24.0),
+    //),
+    content: SizedBox(
+      height: 420,
+      width: 320,
+      child:   SingleChildScrollView(
+        padding:  const EdgeInsets.all(5.0),
+        child:   Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.topRight,
+              child:  IconButton(onPressed: (){
+                Navigator.pop(context as BuildContext);
+              }, icon:  Icon(
+                Icons.close,
+                color: Colors.lightGreen.shade800 ,
+                size: 40.00,
+                weight: 700,
+              ) ),),
+            Center(
+                child: Text('About',
+                  style: TextStyle(
+                      color: Colors.lightGreen.shade800,
+                      fontFamily: "Teko",
+                      fontWeight: FontWeight.w600,
+                      fontSize: 30.00
+                  ),)),
+          ],
+        ),
+      ),
+    ));
+
+
+
+
 
 
 

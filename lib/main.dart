@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
               value: AuthService().onAuthStateChanged,
               builder: (context, snapshot) {
                 return  MaterialApp(
-                  debugShowCheckedModeBanner: false,
+                 // debugShowCheckedModeBanner: false,
                   title: 'Bird Nerd',
                   theme: ThemeData(
                     fontFamily: "Teko",

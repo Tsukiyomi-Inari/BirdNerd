@@ -8,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../model/bird_model.dart';
+import '../model/userbird.dart';
 
 class StorageService{
   final String? uid;
@@ -47,7 +48,7 @@ class StorageService{
             return snapshot;
   }
 
-  Future<File> downloadBirdImage(Bird birdy) async{
+  Future<File> downloadBirdImage(UserBird birdy) async{
     try{
           final birdImageRef = storageRef.child("${Image.network(birdy.url)}");
           final File downloadFile = File(birdImageRef.fullPath);

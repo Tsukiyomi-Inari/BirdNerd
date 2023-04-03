@@ -5,10 +5,13 @@
 /// The camera preview acts as the landing page after a user has successfully
 /// signed in. Allows the user quick access to capturing an image.
 
+
 import 'package:birdnerd/screens/home/identification.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:birdnerd/shared/globals.dart' as globals;
+import 'package:location/location.dart';
+import '../../shared/globals.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
@@ -24,31 +27,26 @@ class _CameraScreenState extends State<CameraScreen> {
   int direction = 0;
 
   final controller = PageController(initialPage: 1);
-
-
-
+  Location location = Location();
   @override
-  void initState(){
-      startCamera(0);
+  void initState() {
+    startCamera(0);
     super.initState();
   }
 
   Future<void> startCamera(int direction) async {
     cameras = await availableCameras();
     cameraController = CameraController(
-        cameras[direction],
-        ResolutionPreset.high,
-        enableAudio: false
-    );
+        cameras[direction], ResolutionPreset.high,
+        enableAudio: false);
     await cameraController.initialize().then((value) {
-      if(!mounted) {
+      if (!mounted) {
         return;
       }
       setState(() {
         _cameraInitialized = true;
       }); // refreshes widget?
-    }).catchError((e){
-    });
+    }).catchError((e) {});
   }
 
   @override
@@ -60,7 +58,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if(_cameraInitialized && cameraController.value.isInitialized){
+    if (_cameraInitialized && cameraController.value.isInitialized) {
       return Scaffold(
         body: Stack(
           children: [
@@ -69,33 +67,41 @@ class _CameraScreenState extends State<CameraScreen> {
                 height: double.infinity,
                 child: CameraPreview(cameraController)),
             GestureDetector(
-                onTap: (){
+                onTap: () {
                   setState(() {
                     direction = direction == 0 ? 1 : 0;
                     startCamera(direction);
-
                   });
                 },
-                child: button(Icons.flip_camera_ios_outlined, Alignment.bottomLeft)
-            ),
+                child: button(
+                    Icons.flip_camera_ios_outlined, Alignment.bottomLeft)),
             GestureDetector(
-              onTap: () async{
+              onTap: () async {
                 try {
                   cameraController.takePicture().then((XFile? file) {
-                    if(!mounted) return;
-                      if(file != null) {
-                        //print("Picture saved to ${file.path}");
-                        /// Stores the filepath of captured image into globals
-                        globals.filepath = file.path;
-                        //Navigator.pushNamed(context, '/identification');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => IdentificationScreen()),
-                        );
+                    if (!mounted) return;
+                    if (file != null) {
+                      //print("Picture saved to ${file.path}");
+                      /// Stores the filepath of captured image into globals
+                      globals.filepath = file.path;
+
+                      /// Get the user's location
+                      location.getLocation().then((pos) {
+                        globals.latitude = pos.latitude;
+                        globals.longitude = pos.longitude;
+                      //print(globals.latitude);
+                      //print(globals.longitude);
+                                            });
+                      //Navigator.pushNamed(context, '/identification');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => IdentificationScreen()),
+                      );
                     }
                   });
                 } catch (e) {
-                  // Log error to console.
+// Log error to console.
                   print(e);
                 }
               },
@@ -104,12 +110,12 @@ class _CameraScreenState extends State<CameraScreen> {
           ],
         ),
       );
-    }else{
+    } else {
       return const SizedBox();
     }
   }
 
-  Widget button(IconData icon, Alignment alignment){
+  Widget button(IconData icon, Alignment alignment) {
     return Align(
       alignment: alignment,
       child: Container(
@@ -128,8 +134,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 offset: Offset(2, 2),
                 blurRadius: 10,
               )
-            ]
-        ),
+            ]),
         child: Center(
           child: Icon(
             icon,
