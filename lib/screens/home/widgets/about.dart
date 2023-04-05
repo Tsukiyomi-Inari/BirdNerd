@@ -60,7 +60,6 @@ about(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
                         Icons.close,
                         color: Colors.lightGreen.shade800 ,
                         size: 40.00,
-                        weight: 700,
                       ) ),),
                 Center(
                         child: Text('About',
@@ -148,7 +147,6 @@ about(context, FirebaseAuth _authInstance, AuthService _auth, mounted) {
                           Icons.arrow_back,
                           color: Colors.lightGreen.shade800 ,
                           size: 50.00,
-                          weight: 700,
                         )),
                   )
                ],

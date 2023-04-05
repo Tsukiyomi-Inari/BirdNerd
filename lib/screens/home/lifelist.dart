@@ -14,7 +14,7 @@ import 'package:birdnerd/model/bird_model.dart';
 import 'package:provider/provider.dart';
 import '../../model/userbird.dart';
 import '../../services/auth.dart';
-import 'package:birdnerd/screens/home/widgets/bird_detail.dart' as BirdDetail;
+import 'package:birdnerd/screens/home/widgets/bird_detail.dart' as bird_detail;
 
 class LifeList extends StatefulWidget {
   LifeList({super.key});
@@ -76,23 +76,25 @@ class _LifeListState extends State<LifeList> {
   }
 
   /// Map icon button to navigate to user's location at time of entry photo taken
-  final IconButton mapIconButton = IconButton(
-    onPressed: () {
-      /// Launch map page where marker is
-    },
-    icon: Icon(
-      Icons.location_on_sharp,
-      color: Colors.lightGreen.shade800,
-      size: 50,
-    ),
-  );
+  /// May implement at a later date.
+  // final IconButton mapIconButton = IconButton(
+  //   onPressed: () {
+  //     /// Launch map page where marker is
+  //   },
+  //   icon: Icon(
+  //     Icons.location_on_sharp,
+  //     color: Colors.lightGreen.shade800,
+  //     size: 50,
+  //   ),
+  // );
+
 
   @override
   Widget build(BuildContext context) {
 //String? uid = _authInstance.currentUser?.uid.toString();
     return Scaffold(
         appBar: AppBar(
-//toolbarOpacity: 0,
+          //toolbarOpacity: 0,
           foregroundColor: const Color(0xff58901F),
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
@@ -187,12 +189,11 @@ class _LifeListState extends State<LifeList> {
                           ),
                           child: GestureDetector(
                             onTap: () async {
-                              BirdDetail.birdDetail(
+                              bird_detail.birdDetail(
                                   context,
                                   _authInstance,
                                   _auth,
                                   mounted,
-                                  null,
                                   null,
                                   birds[i]);
                             },
@@ -248,19 +249,17 @@ class _LifeListState extends State<LifeList> {
                     child: GestureDetector(
                       onTap: () async {
                         _showUniqueBirds
-                            ? BirdDetail.birdDetail(
+                            ? bird_detail.birdDetail(
                             context,
                             _authInstance,
                             _auth,
                             mounted,
-                            mapIconButton,
                             uniqueUserBirds[i])
-                            : BirdDetail.birdDetail(
+                            : bird_detail.birdDetail(
                             context,
                             _authInstance,
                             _auth,
                             mounted,
-                            mapIconButton,
                             userBirds[i]);
                       },
                       child: Opacity(

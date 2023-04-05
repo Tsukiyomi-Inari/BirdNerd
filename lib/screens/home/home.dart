@@ -15,8 +15,10 @@ import 'package:birdnerd/screens/home/map.dart';
 import 'package:birdnerd/screens/home/widgets/settings.dart' as Settings;
 import 'package:birdnerd/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:birdnerd/shared/globals.dart' as globals;
 
 import '../../model/bird_model.dart';
+import '../../model/userbird.dart';
 import '../../shared/loading.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,15 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final _bottomNavigationBarItems = [
     BottomNavigationBarItem(
-        icon: Icon(Icons.map, color: Colors.lightGreen.shade800 , weight: 700, size: 40.00,),
+        icon: Icon(Icons.map, color: Colors.lightGreen.shade800 , size: 40.00,),
         label: 'Map'
     ),
      BottomNavigationBarItem(
-        icon: Icon(Icons.camera_alt_outlined, color: Colors.lightGreen.shade800, weight: 700,size: 40.00),
+        icon: Icon(Icons.camera_alt_outlined, color: Colors.lightGreen.shade800, size: 40.00),
         label: 'Camera')
     ,
     BottomNavigationBarItem(
-    icon: Icon(Icons.list, color: Colors.lightGreen.shade800, weight: 700,size: 40.00),
+    icon: Icon(Icons.list, color: Colors.lightGreen.shade800, size: 40.00),
     label: 'List'
     ),
   ];
@@ -57,9 +59,23 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  bool _isLoading = true;
+
+  Future<void> numberOfBirds() async {
+    String? uid = _authInstance.currentUser?.uid.toString();
+    List<UserBird> userBirds = await DatabaseService.getUserList(uid!);
+
+    globals.totalBirds = userBirds.length;
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    /// Count total number of birds
+    numberOfBirds();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreen.shade800,

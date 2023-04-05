@@ -108,6 +108,8 @@ late  bool _loading = false;
                       alignment: Alignment.topRight,
                       child: IconButton(
                           onPressed: () {
+                            //TODO: add ternary operator for setState
+                            //TODO: for showing circleSpinLoading
                             Navigator.pop(context);
                           },
                           icon: Icon(
@@ -125,10 +127,8 @@ late  bool _loading = false;
                             SizedBox(height: 20),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-
                               /// Dialog window title
                               child: Center(
-
                                   child: Text(_recognized
                                       ? 'Confirm'
                                       : 'Unidentified',
@@ -137,7 +137,6 @@ late  bool _loading = false;
                                       fontFamily: "Teko",
                                       color: Colors.lightGreen.shade800,
                                       fontWeight: FontWeight.w700,
-
                                     ), )),
                             ),
                             const SizedBox(height: 20,),

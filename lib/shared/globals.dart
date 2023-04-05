@@ -16,6 +16,9 @@ String filepath = '';
 double? latitude;
 double? longitude;
 
+// For Settings page
+int totalBirds = 0;
+
 LatLng location = const LatLng(43.941990, -78.894478);
 
 // // Marker test
@@ -57,7 +60,6 @@ LatLng location = const LatLng(43.941990, -78.894478);
                 Icons.close,
                 color: Colors.lightGreen.shade800 ,
                 size: 40.00,
-                weight: 700,
               ) ),),
             Center(
                 child: Text('About',
